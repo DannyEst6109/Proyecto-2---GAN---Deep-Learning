@@ -1,0 +1,8 @@
+# Entorno CPU verificado en Windows con Python 3.13.7.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.1+cpu
+torchvision==0.29.1+cpu
+numpy==2.5.2
+pillow==12.3.0
+matplotlib==3.11.2
+jupyterlab==4.6.4
