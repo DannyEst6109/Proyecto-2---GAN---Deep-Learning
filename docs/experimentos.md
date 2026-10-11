@@ -1,7 +1,14 @@
-# Plan de experimentos de persona 1
+# Plan de experimentos de la parte 1
 
-Plan propuesto; todavía no ejecutado. Ajustar el presupuesto con una prueba corta
+Se completó una comparación de 300 épocas por variante con 22 imágenes de cuerpo
+completo. Los resultados fueron negativos: no se obtuvieron personajes reconocibles.
+Ver `docs/resultados_fullbody_v2.md`; las hipótesis no demostraron las mejoras esperadas.
+Se conserva también
+una comparación técnica con seis imágenes y tres épocas por variante; no valida
+calidad ni las hipótesis del proyecto. Ajustar el presupuesto con el dataset final
 y luego fijar la configuración para todos los experimentos comparables.
+Las hipótesis previas están también en `docs/hypotheses/`. El procedimiento de
+ejecución conjunta y análisis está en `docs/parte_1.md`.
 
 ## Configuración base
 
@@ -37,6 +44,8 @@ y conserva o mejora la diversidad y coherencia visual del ruido fijo.
 ## Controles y registros
 
 - Mismos datos, semilla, épocas, arquitectura, optimizadores y ruido de evaluación.
+- Mismo orden de datos y secuencia de vectores de entrenamiento: el ruido de
+  estabilización utiliza un generador aleatorio independiente.
 - Reiniciar cada variante desde la misma inicialización; no continuar desde la base.
 - Guardar la hipótesis antes de ejecutar y registrar la configuración efectiva.
 - Guardar ruido fijo, pérdidas, muestras por época, pesos y estados de optimizadores.

@@ -1,0 +1,9 @@
+{
+  "variant": "base",
+  "candidate_count": 200,
+  "regeneration_verified_count": 200,
+  "comparison": "PNG byte-for-byte in same CPU environment",
+  "checkpoint_sha256": "7c2d64da5bccc83677704f46dd547a7f8c4265dd099cb8e11b7a8585a750e083",
+  "recognizable_characters_found_in_assisted_review": 0,
+  "review_requires_team_confirmation": true
+}

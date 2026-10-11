@@ -1,0 +1,28 @@
+{
+  "status": "technical_pilot_completed_not_final_model",
+  "training_images": 6,
+  "epochs": 1,
+  "config": "configs/pilot_curated_v1.json",
+  "environment": {
+    "python": "3.13.7",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.2",
+    "device": "cpu",
+    "threads": 4,
+    "gpu": null
+  },
+  "history": [
+    {
+      "epoch": "1",
+      "loss_g": "7.240762233734131",
+      "loss_d": "0.6370976567268372",
+      "d_real": "0.51239413022995",
+      "d_fake": "0.3449594974517822",
+      "seconds": "0.6271443000005092",
+      "images_seen": "6"
+    }
+  ],
+  "checkpoint_sha256": "6e0bac68c7737faa4d39c60e00dbc6c6381d4b4b229059142ede56568fd9516c",
+  "visual_result": "Fixed-noise outputs are essentially gray at epoch 1; no recognizable dragons.",
+  "timing_scope": "Epoch loop only, six images in one batch; excludes startup and does not estimate final dataset training."
+}

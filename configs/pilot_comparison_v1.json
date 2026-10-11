@@ -6,12 +6,12 @@
   "features": 64,
   "threads": 4,
   "batch_size": 64,
-  "epochs": 50,
+  "epochs": 3,
   "learning_rate_g": 0.0002,
   "learning_rate_d": 0.0002,
   "fixed_noise_count": 16,
   "generator_loss": "non_saturating",
   "discriminator_input_noise_std": 0.0,
-  "dataset_path": null,
-  "dataset_manifest_sha256": null
+  "dataset_path": "data/dragons",
+  "dataset_manifest_sha256": "8eb04f11dcda062b3dac809e898214e72f02943928046244f609885f4213eab9"
 }

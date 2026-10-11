@@ -1,0 +1,1 @@
+Referencia: con DCGAN de 64×64, pérdida no saturante y sin ruido de entrada en D, esperamos aprender rasgos comunes del dataset. Revisaremos reconocimiento, coherencia y diversidad mediante el ruido fijo y los candidatos. Las pérdidas por sí solas no demostrarán calidad, convergencia ni novedad. El piloto de seis imágenes solo comprueba el procedimiento.

@@ -1,0 +1,105 @@
+{
+  "source": "https://www.kaggle.com/datasets/agrigorev/dino-or-dragon",
+  "version": 1,
+  "license_published": "CC0-1.0",
+  "synthetic_source": "Stable Diffusion v1.4",
+  "training_images": 22,
+  "reserved_test_images": 198,
+  "criteria": "Single full-body winged dragon; color and monochrome illustrations admitted; no portraits.",
+  "limitations": [
+    "Small dataset; memorization risk",
+    "Subjective AI-assisted curation pending team review",
+    "Style variation; synthetic anatomy imperfections"
+  ],
+  "dataset_manifest_sha256": "4f91861e7e28a9bdc7c6db3f40de85001d374d9b2dded01aadeb7539bd84bf1c",
+  "images": [
+    {
+      "path": "1270222c-3ebe-4b59-99f0-bea6b2d302b0.jpg",
+      "sha256": "5f2d734de7f9aea51e36c09c3bdd6307145ea45084f37e7cb5d2a090d65bde40"
+    },
+    {
+      "path": "15e72795-8599-42a1-bc55-2d87818463d3.jpg",
+      "sha256": "4a421219309f43d26897403bcac788ddb60470cee87de30290888b723859da47"
+    },
+    {
+      "path": "2a2143ef-349f-4430-afcc-c221f0d29b63.jpg",
+      "sha256": "b7c8783de26c1f7b1721b27826ee4245f325ec2740aab8a80e11b896e1d93613"
+    },
+    {
+      "path": "3c3221b9-e3d5-4dcc-97f8-8404c8891808.jpg",
+      "sha256": "3ef9bdf54ad0df74267d8a6215214603a5fd203ec0451e2f219092c30f1b5380"
+    },
+    {
+      "path": "46b10cea-3823-477f-a8e8-55c8f2ada824.jpg",
+      "sha256": "66b4098291d3f1d2c414fbcf5acbaf9abe9bd11524c7269d9cb02eadb5f2ac38"
+    },
+    {
+      "path": "5efef6b8-d6fd-4e32-8dad-18b5ed198ef5.jpg",
+      "sha256": "d99b7f06e0c88c2420d98e1e3dd45a481cc2005a35210af4eba117b85c192906"
+    },
+    {
+      "path": "620d484d-4c50-43de-8486-d3252fa35869.jpg",
+      "sha256": "12fbf7d61b3058b69499d1a453a25671931bfceaad35d826f0e633ca0c344ac4"
+    },
+    {
+      "path": "92062072-8e51-4534-85a0-aab141c988cb.jpg",
+      "sha256": "8b4f0e79bfa06763b779ac5cba180588e47151e258ac2dc29eb300a444717d4d"
+    },
+    {
+      "path": "9e31dcef-6653-471d-a226-2d2e29e4ca80.jpg",
+      "sha256": "1274c09e927c259d0f838438bbdb0fa62bf226ebbafb989135a4be5b300bf7b2"
+    },
+    {
+      "path": "a1f18413-693e-4762-be51-b72cb605b670.jpg",
+      "sha256": "ea67cc2e3f6c80deb4719a50b0ff05303974d2575e203881c415eab9bbbc5333"
+    },
+    {
+      "path": "a709edb3-5d41-4202-8544-9e8532f21062.jpg",
+      "sha256": "1cd923655f5a3cb99d2f2dd027ddf6b17d623c7d4bab8485c079a7596cccd63c"
+    },
+    {
+      "path": "a7b54103-2c4d-4c2e-ac70-30ea6d185758.jpg",
+      "sha256": "92a742a308dee6d5ffa628fc4465d0c867ddacdaf80433e7e8cf8cab606fc84e"
+    },
+    {
+      "path": "a81af7f2-c93a-406b-a765-ee03589521d2.jpg",
+      "sha256": "0f81be28a3d1ff12aaa1fe8b4b224731248622a9848ef625926b6fe845ca7643"
+    },
+    {
+      "path": "bb385872-355d-43d0-baa6-07ceef38d29f.jpg",
+      "sha256": "a63442d08c5ce5b51623f6b49027c5c98b04342012e8e2f540372d1d3e856823"
+    },
+    {
+      "path": "cd4493a6-7a6b-4069-9f3c-7a7faf315b15.jpg",
+      "sha256": "cd0fdcc65c298b53ed750247e693bf7e5f82193ecc56befa4e4a2d9f3aac02ea"
+    },
+    {
+      "path": "d0fef1b4-cc90-48ec-8d5a-9e84eda7f0d7.jpg",
+      "sha256": "26134e81acf82feefed923eb9679b8cad3f0905cac0bbc395fae9230499e76a7"
+    },
+    {
+      "path": "dc429d20-3473-4679-83ca-f52de784fb64.jpg",
+      "sha256": "472c9f2a10eec004eb87413892e5575cc719e5d4c52f928551cc53976a5a9ca9"
+    },
+    {
+      "path": "dd69efd6-38d1-434f-8d54-46c42213b813.jpg",
+      "sha256": "784bc53f3efba445703314d4108bd00f913b88d23444628b2d719a2db175d2c9"
+    },
+    {
+      "path": "e3fecf1c-d07a-4c79-88f2-06a74388592e.jpg",
+      "sha256": "4d9f6d494e09d8c98175bb71473fa5b4d7943c49b2e081eb383673efcb40a6b0"
+    },
+    {
+      "path": "ef6c3cc2-e6cc-44a1-8d15-e4d81ae79105.jpg",
+      "sha256": "49d059890d9820cbf656cde22de2090170d7cde753a24ee08afe00dd0dedf92d"
+    },
+    {
+      "path": "fd3e551c-101f-43c3-972c-5998bed292a2.jpg",
+      "sha256": "93ed829e22be3e047a2c9675c53e98df1a1e8f65ed650d346626d7ab380513b8"
+    },
+    {
+      "path": "ff177fe4-67cc-4845-9504-20de94c2f265.jpg",
+      "sha256": "eca0b2e0e69ec08808b59a7bbc66201e25a439c0f8552c1f19418fde70122c0f"
+    }
+  ]
+}

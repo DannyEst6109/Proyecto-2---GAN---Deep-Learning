@@ -1,0 +1,1 @@
+Diagnóstico previo: el dominio de D y las texturas repetidas en v2 motivan reducir lr D y aumentar lr G en una nueva base. Este ensayo no es la variante de pérdida ni de estabilización, y no se mezclará con v2. Si se adopta, se repetirán las tres comparaciones desde cero con esta configuración.

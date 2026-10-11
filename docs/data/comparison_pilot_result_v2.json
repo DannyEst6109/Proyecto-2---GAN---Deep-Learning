@@ -1,0 +1,66 @@
+{
+  "purpose": "pilot",
+  "training_images": 6,
+  "controls_verified": [
+    "single_factor_configs",
+    "same_dataset",
+    "same_environment",
+    "same_fixed_noise",
+    "same_initial_samples",
+    "same_completed_epochs"
+  ],
+  "epochs_completed": 3,
+  "epochs_planned": 3,
+  "all_epochs_completed": true,
+  "runs": {
+    "base": {
+      "final": {
+        "epoch": 3.0,
+        "loss_g": 7.39946985244751,
+        "loss_d": 0.05672593414783478,
+        "d_real": 0.9952535629272461,
+        "d_fake": 0.10129144787788391,
+        "seconds": 0.40849429999798303,
+        "images_seen": 6.0
+      },
+      "training_loop_seconds": 1.3413635000033537
+    },
+    "loss": {
+      "final": {
+        "epoch": 3.0,
+        "loss_g": -0.0009917613351717591,
+        "loss_d": 0.025770951062440872,
+        "d_real": 0.9959942698478699,
+        "d_fake": 0.04554610326886177,
+        "seconds": 0.37544250000064494,
+        "images_seen": 6.0
+      },
+      "training_loop_seconds": 1.0607612000094377
+    },
+    "stabilization": {
+      "final": {
+        "epoch": 3.0,
+        "loss_g": 7.300024509429932,
+        "loss_d": 0.0912557914853096,
+        "d_real": 0.9910928606987,
+        "d_fake": 0.15119455754756927,
+        "seconds": 0.3998026999979629,
+        "images_seen": 6.0
+      },
+      "training_loop_seconds": 1.205752499998198
+    }
+  },
+  "interpretation": "AI_ASSISTED_VISUAL_REVIEW_TEAM_REVIEW_PENDING",
+  "selected_model": null,
+  "limitations": [
+    "Las pérdidas de G tienen objetivos diferentes.",
+    "D(real) y D(fake) son puntuaciones de entrenamiento, no métricas de calidad.",
+    "Una semilla no demuestra robustez estadística.",
+    "El piloto no demuestra diversidad, novedad ni aptitud para la entrega final."
+  ],
+  "interpretation_document": "docs/resultados_piloto_comparativo.md",
+  "hypothesis_results": {
+    "loss": "inconclusive",
+    "stabilization": "inconclusive"
+  }
+}

@@ -40,13 +40,14 @@ Instalar el entorno siguiendo los pasos anteriores. No copiar `.venv` entre equi
 
 ## Organización de cambios
 
-- Persona 1: rama `codex/persona-1-gan`, código de modelo y entrenamiento.
-- Persona 2: rama `codex/persona-2-datos`, datos, evaluación y presentación.
-- Integrar mediante pull requests y coordinar cambios en archivos compartidos.
-- Evitar editar simultáneamente el mismo notebook; conservar notebooks separados.
-- Actualizar la copia local antes de empezar y subir cambios terminados de la rama propia.
+Acuerdo del equipo: trabajar siempre en `main`, sin crear nuevas ramas.
+Codex no debe hacer commits ni subir cambios; esas operaciones las realizará el usuario.
 
-Las ramas son una propuesta de organización, no se han creado automáticamente.
+- Parte 1: `dragon_gan/` y notebook de entrenamiento.
+- Persona 2: datos, evaluación y presentación; conservar su notebook por separado.
+- Coordinar modificaciones de README, configuración y documentación compartida.
+- Antes de actualizar desde GitHub, revisar `git status` y proteger el trabajo local.
+- Evitar editar simultáneamente el mismo archivo o notebook.
 
 ## Datos y resultados
 

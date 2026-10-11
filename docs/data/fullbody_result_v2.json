@@ -1,0 +1,78 @@
+{
+  "purpose": "project",
+  "training_images": 22,
+  "controls_verified": [
+    "single_factor_configs",
+    "same_dataset",
+    "same_environment",
+    "same_fixed_noise",
+    "same_initial_samples",
+    "same_completed_epochs",
+    "same_final_training_rng_state",
+    "same_final_loader_rng_state",
+    "checkpoints_complete"
+  ],
+  "epochs_completed": 300,
+  "epochs_planned": 300,
+  "all_epochs_completed": true,
+  "runs": {
+    "base": {
+      "final": {
+        "epoch": 300.0,
+        "loss_g": 6.15562816099687,
+        "loss_d": 0.014276174997741526,
+        "d_real": 0.9849241375923157,
+        "d_fake": 0.013200614262710918,
+        "seconds": 0.7473280999984127,
+        "images_seen": 22.0
+      },
+      "training_loop_seconds": 219.04238630003965
+    },
+    "loss": {
+      "final": {
+        "epoch": 300.0,
+        "loss_g": -0.001346759889698164,
+        "loss_d": 0.0016425080724399197,
+        "d_real": 0.9984134327281605,
+        "d_fake": 0.001690787252631377,
+        "seconds": 0.6426481000016793,
+        "images_seen": 22.0
+      },
+      "training_loop_seconds": 204.70304870008113
+    },
+    "stabilization": {
+      "final": {
+        "epoch": 300.0,
+        "loss_g": 5.801022399555553,
+        "loss_d": 0.015648693015629597,
+        "d_real": 0.9829120635986328,
+        "d_fake": 0.013772177425297823,
+        "seconds": 0.7543387000041548,
+        "images_seen": 22.0
+      },
+      "training_loop_seconds": 220.99525139995967
+    }
+  },
+  "interpretation": "AI_ASSISTED_REVIEW_COMPLETED_TEAM_CONFIRMATION_PENDING",
+  "selected_model": null,
+  "limitations": [
+    "Las pérdidas de G tienen objetivos diferentes.",
+    "D(real) y D(fake) son puntuaciones de entrenamiento, no métricas de calidad.",
+    "Una semilla no demuestra robustez estadística.",
+    "El piloto no demuestra diversidad, novedad ni aptitud para la entrega final."
+  ],
+  "interpretation_document": "docs/resultados_fullbody_v2.md",
+  "hypothesis_results": {
+    "loss": "no_recognition_improvement_demonstrated",
+    "stabilization": "no_stability_or_recognition_improvement_demonstrated"
+  },
+  "visual_goal_met": false,
+  "candidate_count": 600,
+  "accepted_after_assisted_review": 0,
+  "assisted_selection_rate": 0.0,
+  "checkpoint_sha256": {
+    "base": "7c2d64da5bccc83677704f46dd547a7f8c4265dd099cb8e11b7a8585a750e083",
+    "loss": "9b357d2692b450c33d63056e1ca918f656bd193020550f8de357b297353197b6",
+    "stabilization": "ab08c9732890da764478c79eb6683d165e366545e4fcbea4e61c5267d4dce79d"
+  }
+}

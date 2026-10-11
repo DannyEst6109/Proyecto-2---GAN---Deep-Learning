@@ -3,15 +3,15 @@
   "image_size": 64,
   "channels": 3,
   "latent_dim": 100,
-  "features": 64,
+  "features": 32,
   "threads": 4,
-  "batch_size": 64,
-  "epochs": 50,
+  "batch_size": 8,
+  "epochs": 300,
   "learning_rate_g": 0.0002,
-  "learning_rate_d": 0.0002,
+  "learning_rate_d": 0.0001,
   "fixed_noise_count": 16,
   "generator_loss": "non_saturating",
   "discriminator_input_noise_std": 0.0,
-  "dataset_path": null,
-  "dataset_manifest_sha256": null
+  "dataset_path": "data/dragons_fullbody_v2",
+  "dataset_manifest_sha256": "4f91861e7e28a9bdc7c6db3f40de85001d374d9b2dded01aadeb7539bd84bf1c"
 }

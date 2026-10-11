@@ -1,4 +1,4 @@
-# Entrega de datos de persona 2 a persona 1
+# Entrega de datos de persona 2 a la parte 1
 
 Antes de entrenar, entregar:
 
@@ -14,7 +14,7 @@ Antes de entrenar, entregar:
 5. Una muestra visual del dataset para revisar juntos antes de cerrar la versión.
 
 Propuesta de entrada al modelo: RGB, 64×64 y normalización a [-1, 1].
-Persona 1 y persona 2 deben acordar dónde se aplican las transformaciones para
+Parte 1 y persona 2 deben acordar dónde se aplican las transformaciones para
 no recortar o normalizar dos veces las mismas imágenes.
 
 Cerrar una versión del dataset y conservarla en todas las comparaciones.

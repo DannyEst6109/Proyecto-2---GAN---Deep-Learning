@@ -1,0 +1,38 @@
+{
+  "status": "technical_pilot_only_insufficient_for_final_training",
+  "source": "https://www.kaggle.com/datasets/agrigorev/dino-or-dragon",
+  "version": 1,
+  "published_license": "CC0-1.0",
+  "synthetic_source": "Stable Diffusion v1.4; prompt a picture of a dragon",
+  "source_train_dragons": 767,
+  "source_test_dragons_reserved": 198,
+  "accepted_train_dragons": 6,
+  "rejected_train_dragons": 761,
+  "dataset_manifest_sha256": "8eb04f11dcda062b3dac809e898214e72f02943928046244f609885f4213eab9",
+  "images": [
+    {
+      "path": "a709edb3-5d41-4202-8544-9e8532f21062.jpg",
+      "sha256": "1cd923655f5a3cb99d2f2dd027ddf6b17d623c7d4bab8485c079a7596cccd63c"
+    },
+    {
+      "path": "a7b54103-2c4d-4c2e-ac70-30ea6d185758.jpg",
+      "sha256": "92a742a308dee6d5ffa628fc4465d0c867ddacdaf80433e7e8cf8cab606fc84e"
+    },
+    {
+      "path": "cd4493a6-7a6b-4069-9f3c-7a7faf315b15.jpg",
+      "sha256": "cd0fdcc65c298b53ed750247e693bf7e5f82193ecc56befa4e4a2d9f3aac02ea"
+    },
+    {
+      "path": "e3fecf1c-d07a-4c79-88f2-06a74388592e.jpg",
+      "sha256": "4d9f6d494e09d8c98175bb71473fa5b4d7943c49b2e081eb383673efcb40a6b0"
+    },
+    {
+      "path": "fd3e551c-101f-43c3-972c-5998bed292a2.jpg",
+      "sha256": "93ed829e22be3e047a2c9675c53e98df1a1e8f65ed650d346626d7ab380513b8"
+    },
+    {
+      "path": "ff177fe4-67cc-4845-9504-20de94c2f265.jpg",
+      "sha256": "eca0b2e0e69ec08808b59a7bbc66201e25a439c0f8552c1f19418fde70122c0f"
+    }
+  ]
+}
