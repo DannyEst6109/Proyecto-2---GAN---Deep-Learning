@@ -8,7 +8,7 @@ Se admiten retratos y cuerpos completos (v3); v2 se limitó a cuerpo completo.
 
 - **v2 (22 imágenes, CPU):** las tres variantes colapsaron; se conserva como evidencia
   de colapso de modos. Ver `docs/resultados_fullbody_v2.md`.
-- **v3 (965 imágenes, GPU):** código, datos, configuración e hipótesis listos y
+- **v3 (956 imágenes del dataset v4, GPU):** código, datos, configuración e hipótesis listos y
   probados de punta a punta. Falta ejecutar el entrenamiento en Colab con
   `output/jupyter-notebook/parte_1_gan.ipynb`. Ver `docs/entrenamiento_v3.md`.
 

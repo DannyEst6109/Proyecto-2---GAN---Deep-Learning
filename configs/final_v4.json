@@ -18,6 +18,6 @@
   "isolate_init_rng": true,
   "checkpoint_every": 10,
   "snapshot_every": 50,
-  "dataset_path": "data/dragons_all_v3",
-  "dataset_manifest_sha256": "6f9a23f8163098c7d2aa9996680344bcb763e21fc3af6d44399ef2f020d570a2"
+  "dataset_path": "data/dragons_final_v4",
+  "dataset_manifest_sha256": "ddf0ac89d84492bf39b47817e409dd83d5c3805bc7e6f396c76f8a24201e911e"
 }

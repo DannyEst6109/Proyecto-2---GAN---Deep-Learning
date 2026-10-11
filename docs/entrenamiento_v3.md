@@ -1,4 +1,4 @@
-# Parte 1, versión 3: 965 dragones en GPU
+# Parte 1, versión 3: 956 dragones (dataset v4) en GPU
 
 ## Por qué una v3
 
@@ -17,7 +17,7 @@ Conclusión: el problema principal eran los datos y el presupuesto, no el códig
 
 | Aspecto | v2 | v3 |
 |---|---|---|
-| Datos | 22 seleccionadas a mano (cuerpo completo) | 965: todos los dragones del ZIP (train 767 + test 198) |
+| Datos | 22 seleccionadas a mano (cuerpo completo) | 956: dataset v4 de persona 2 (965 dragones del ZIP menos 9 excluidos) |
 | Aumento | ninguno | volteo horizontal aleatorio (p = 0,5) |
 | Red | 32 canales base | 64 canales base (DCGAN estándar) |
 | Lote / épocas | 8 / 300 (900 pasos) | 64 / 600 (≈9 600 pasos) |
@@ -27,8 +27,8 @@ Conclusión: el problema principal eran los datos y el presupuesto, no el códig
 | Dispositivo | CPU | GPU de Colab (CPU: ~30 s por época, inviable) |
 
 Ya no se filtra por encuadre de cuerpo completo: el universo admite retratos y
-cuerpos completos de dragones. Selección: `docs/data/curation_all_v3.csv`
-(ruta, SHA-256 y decisión de cada imagen). Configuración: `configs/final_v3.json`.
+cuerpos completos de dragones. Selección: `docs/data/curation_final_v4.csv`, ver `docs/ficha_dataset.md`
+(ruta, SHA-256 y decisión de cada imagen). Configuración: `configs/final_v4.json`.
 Hipótesis escritas antes de entrenar: `docs/hypotheses/v3/`.
 
 La normalización espectral (Miyato et al., 2018) se aplica a todas las
@@ -55,14 +55,14 @@ corta, se vuelve a ejecutar desde arriba y se reanuda.
 Equivalente por línea de comandos:
 
 ```bash
-python scripts/prepare_dataset.py --selection docs/data/curation_all_v3.csv --output data/dragons_all_v3
-python -m scripts.run_experiments --config configs/final_v3.json --data data/dragons_all_v3 --output runs/final_v3 --device cuda --purpose project --hypotheses docs/hypotheses/v3
+python scripts/prepare_dataset.py --selection docs/data/curation_final_v4.csv --output data/dragons_final_v4
+python -m scripts.run_experiments --config configs/final_v4.json --data data/dragons_final_v4 --output runs/final_v3 --device cuda --purpose project --hypotheses docs/hypotheses/v3
 python -m scripts.compare_experiments --runs runs/final_v3 --output runs/final_v3/report
 python -m dragon_gan.generate --checkpoint runs/final_v3/<variante>/last.pt --output runs/candidates_v3 --count 200 --seed 1000
 ```
 
 ## Para persona 2
 
-- Vecinos más cercanos: buscar en `data/dragons_all_v3` (las 965 imágenes de entrenamiento).
+- Vecinos más cercanos: buscar en `data/dragons_final_v4` (las 956 imágenes de entrenamiento).
 - Tasa de selección: 10 de 200 candidatos (semillas 1000–1199), más el criterio.
 - La galería se regenera con `dragon_gan.generate --manifest galeria_selection.json`.
