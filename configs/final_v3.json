@@ -1,0 +1,23 @@
+{
+  "seed": 42,
+  "image_size": 64,
+  "channels": 3,
+  "latent_dim": 100,
+  "features": 64,
+  "threads": 2,
+  "batch_size": 64,
+  "epochs": 600,
+  "learning_rate_g": 0.0002,
+  "learning_rate_d": 0.0002,
+  "fixed_noise_count": 16,
+  "generator_loss": "non_saturating",
+  "discriminator_input_noise_std": 0.0,
+  "discriminator_spectral_norm": false,
+  "stabilization_change": {"discriminator_spectral_norm": true},
+  "augment_hflip": true,
+  "isolate_init_rng": true,
+  "checkpoint_every": 10,
+  "snapshot_every": 50,
+  "dataset_path": "data/dragons_all_v3",
+  "dataset_manifest_sha256": "6f9a23f8163098c7d2aa9996680344bcb763e21fc3af6d44399ef2f020d570a2"
+}

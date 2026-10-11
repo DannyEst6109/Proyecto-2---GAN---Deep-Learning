@@ -60,6 +60,25 @@ def main():
                 for model in ('generator', 'discriminator'):
                     assert all(torch.equal(variant[model][key], noise_resumed[model][key])
                                for key in variant[model]), 'Reanudación de ruido distinta'
+        # v3: normalización espectral como cambio único, volteo horizontal y snapshots.
+        v3 = dict(config, discriminator_spectral_norm=False, augment_hflip=True, isolate_init_rng=True, snapshot_every=1, checkpoint_every=2,
+                  stabilization_change={'discriminator_spectral_norm': True})
+        v3_base = torch.load(train(v3, data, root / 'v3_base', device='cpu'), weights_only=True)
+        v3_sn = torch.load(train(v3, data, root / 'v3_sn', experiment='stabilization', device='cpu'),
+                           weights_only=True)
+        differences = {key for key in v3_base['config'] if v3_base['config'][key] != v3_sn['config'][key]}
+        assert differences == {'discriminator_spectral_norm'}, differences
+        assert torch.equal(v3_base['rng']['torch'], v3_sn['rng']['torch']), 'SN desalineó los vectores z'
+        assert torch.equal(v3_base['rng']['augment'], v3_sn['rng']['augment'])
+        assert any('parametrizations' in key for key in v3_sn['discriminator'])
+        assert (root / 'v3_base/samples/epoch_0000.png').read_bytes() == (root / 'v3_sn/samples/epoch_0000.png').read_bytes(), 'SN cambió la inicialización de G'
+        snapshot = root / 'v3_sn/snapshots/generator_epoch_0001.pt'
+        generate(snapshot, root / 'snapshot_candidates', count=2)
+        v3_partial = train(v3, data, root / 'v3_resume', experiment='stabilization', device='cpu', stop_after=1)
+        v3_resumed = torch.load(train(v3, data, root / 'v3_resume', experiment='stabilization', device='cpu',
+                                      resume=v3_partial), weights_only=True)
+        for key in v3_sn['generator']:
+            assert torch.equal(v3_sn['generator'][key], v3_resumed['generator'][key]), 'Reanudación v3 distinta'
         for kind in ('non_saturating', 'minimax'):
             logits = torch.tensor([-100.0, 0.0, 100.0], requires_grad=True)
             loss = generator_loss(logits, kind)

@@ -1,4 +1,4 @@
-"""Reproduce la selección visual del piloto desde el ZIP original, sin recortar."""
+"""Reproduce una selección de dragones (piloto, v2 o completa v3) desde el ZIP original, sin recortar."""
 
 import argparse
 import csv
@@ -27,7 +27,7 @@ def prepare(archive, selection, output):
     with zipfile.ZipFile(archive) as source:
         for row in accepted:
             member = row['source_path']
-            if not member.startswith('train/dragon/') or '..' in Path(member).parts:
+            if not member.startswith(('train/dragon/', 'test/dragon/')) or '..' in Path(member).parts:
                 raise ValueError(f'Ruta no autorizada: {member}')
             data = source.read(member)
             if hashlib.sha256(data).hexdigest() != row['sha256']:

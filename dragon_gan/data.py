@@ -19,11 +19,17 @@ class DragonDataset(Dataset):
         if len(self.files) < 2:
             raise ValueError('Se necesitan al menos dos imágenes legibles.')
         self.image_size = image_size
+        self._cache = {}  # Decodificar cada JPG una sola vez; 1 000 imágenes 64×64 ocupan ~50 MB.
 
     def __len__(self):
         return len(self.files)
 
     def __getitem__(self, index):
+        if index not in self._cache:
+            self._cache[index] = self._load(index)
+        return self._cache[index]
+
+    def _load(self, index):
         path = self.files[index]
         try:
             with Image.open(path) as image:

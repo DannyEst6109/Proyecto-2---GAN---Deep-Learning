@@ -2,26 +2,18 @@
 
 Universo propuesto: dragones de fantasía medieval con escamas, cuernos y alas.
 Game of Thrones es una referencia visual; los personajes finales deben ser nuevos.
-Encuadre acordado: cuerpo completo, con alas y anatomía visibles.
-El estilo definitivo se ajustará según los datos disponibles.
+Se admiten retratos y cuerpos completos (v3); v2 se limitó a cuerpo completo.
 
 ## Estado
 
-DCGAN, entrenamiento y generación implementados. La selección se amplió a 22
-dragones de cuerpo completo. Se completaron las tres comparaciones de 300 épocas
-en CPU y se generaron 600 candidatos. La revisión asistida no encontró dragones
-reconocibles, por lo que sigue pendiente conseguir los diez personajes finales.
-Ver `docs/resultados_fullbody_v2.md`: hay pesos y evidencias, pero el objetivo visual
-no se cumplió. El equipo debe revisar la selección y las conclusiones.
-Modalidad acordada: desarrollo y ejecución local, compartiendo código por GitHub.
-En este equipo se detectó Intel Graphics; se utilizará CPU inicialmente.
-Cada integrante debe comprobar por separado el hardware de su computadora.
-Consultar `docs/entrenamiento.md` para ejecutar. El notebook permite activar el
-entrenamiento explícitamente; por defecto no inicia ejecuciones costosas.
-Consultar `docs/parte_1.md` para ejecutar y comparar las tres variantes con
-hipótesis previas, controles y una configuración congelada.
-El ensayo comparativo de tres épocas por variante terminó en CPU; ver
-`docs/resultados_piloto_comparativo.md`. No produjo personajes reconocibles.
+- **v2 (22 imágenes, CPU):** las tres variantes colapsaron; se conserva como evidencia
+  de colapso de modos. Ver `docs/resultados_fullbody_v2.md`.
+- **v3 (965 imágenes, GPU):** código, datos, configuración e hipótesis listos y
+  probados de punta a punta. Falta ejecutar el entrenamiento en Colab con
+  `output/jupyter-notebook/parte_1_gan.ipynb`. Ver `docs/entrenamiento_v3.md`.
+
+Entorno local: desarrollo y ejecución con CPU, compartiendo código por GitHub.
+Entrenamiento v3: Google Colab con GPU T4 (en CPU cada época tarda ~30 s).
 
 ## División
 
@@ -57,6 +49,9 @@ La semilla propuesta es 42. Ver `docs/experimentos.md` y
 
 ## Uso de asistentes de IA
 
+Se utilizó Claude (Claude Code) para revisar el proyecto, diagnosticar el colapso de v2,
+implementar los cambios de v3 (datos completos, volteo, normalización espectral,
+snapshots, caché de imágenes) y preparar el notebook de Colab.
 Se utilizó Codex para analizar las instrucciones, distribuir responsabilidades
 y preparar la estructura, el plan de experimentos y el código de modelo,
 entrenamiento, generación, búsqueda y curación asistida del dataset y pruebas técnicas

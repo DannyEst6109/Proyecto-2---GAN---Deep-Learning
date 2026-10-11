@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageDraw, ImageOps
 import torch
 
-from dragon_gan.train import write_json
+from dragon_gan.train import variant_config, write_json
 from scripts.run_experiments import EXPERIMENTS
 
 
@@ -30,11 +30,7 @@ def compare(root, output):
         encoded = json.dumps(manifest, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()
         if hashlib.sha256(encoded).hexdigest() != config['dataset_manifest_sha256']:
             raise ValueError(f'{name}: manifiesto y hash distintos.')
-        expected = dict(plan['config'], dataset_path=None)
-        if name == 'loss':
-            expected['generator_loss'] = 'minimax'
-        elif name == 'stabilization':
-            expected['discriminator_input_noise_std'] = 0.05
+        expected = variant_config(dict(plan['config'], dataset_path=None), name)
         if config != expected:
             raise ValueError(f'{name}: configuración distinta del plan de un solo factor.')
         if (folder / 'hypothesis.txt').read_text(encoding='utf-8').strip() != plan['hypotheses'][name]:
@@ -73,7 +69,7 @@ def compare(root, output):
     figure.savefig(output / 'comparison.png', dpi=150)
     plt.close(figure)
     last_epoch = len(base['history'])
-    epochs = sorted({0, max(1, last_epoch // 2), last_epoch})
+    epochs = sorted({0, *(max(1, last_epoch * k // 4) for k in (1, 2, 3)), last_epoch})
     tile = 320
     canvas = Image.new('RGB', (tile * len(EXPERIMENTS), (tile + 30) * len(epochs)), 'white')
     draw = ImageDraw.Draw(canvas)

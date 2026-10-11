@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 EXPERIMENTS = ('base', 'loss', 'stabilization')
 
 
-def run_suite(config_path, data, output, device='cpu', purpose='pilot', resume=False, dry_run=False):
+def run_suite(config_path, data, output, device='cpu', purpose='pilot', resume=False, dry_run=False,
+              hypotheses_dir='docs/hypotheses', only=EXPERIMENTS):
     config = json.loads(Path(config_path).read_text(encoding='utf-8'))
     dataset = DragonDataset(data, config['image_size'])
     _, digest = dataset.manifest()
@@ -23,7 +24,7 @@ def run_suite(config_path, data, output, device='cpu', purpose='pilot', resume=F
         pilot_digest = json.loads(pilot.read_text(encoding='utf-8'))['dataset_manifest_sha256']
         if digest == pilot_digest:
             raise ValueError('Los seis dragones están documentados solo como piloto; usar --purpose pilot.')
-    hypotheses = {name: (ROOT / 'docs/hypotheses' / f'{name}.txt').read_text(encoding='utf-8').strip()
+    hypotheses = {name: (ROOT / hypotheses_dir / f'{name}.txt').read_text(encoding='utf-8').strip()
                   for name in EXPERIMENTS}
     sources = ('dragon_gan/train.py', 'dragon_gan/data.py', 'dragon_gan/models.py',
                'scripts/run_experiments.py')
@@ -43,7 +44,7 @@ def run_suite(config_path, data, output, device='cpu', purpose='pilot', resume=F
         raise FileExistsError('Usar una carpeta vacía para una comparación nueva.')
     output.mkdir(parents=True, exist_ok=True)
     write_json(plan_path, plan)
-    for experiment in EXPERIMENTS:
+    for experiment in only:
         folder = output / experiment
         checkpoint = folder / 'last.pt'
         if resume and folder.exists() and any(folder.iterdir()) and not checkpoint.exists():
@@ -62,8 +63,13 @@ def main():
     parser.add_argument('--purpose', choices=['pilot', 'project'], default='pilot')
     parser.add_argument('--resume', action='store_true')
     parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--hypotheses', default='docs/hypotheses',
+                        help='Carpeta con base.txt, loss.txt y stabilization.txt escritos antes de entrenar.')
+    parser.add_argument('--only', nargs='+', choices=EXPERIMENTS, default=list(EXPERIMENTS),
+                        help='Variantes a ejecutar ahora; usar --resume para completar las demás después.')
     args = parser.parse_args()
-    run_suite(args.config, args.data, args.output, args.device, args.purpose, args.resume, args.dry_run)
+    run_suite(args.config, args.data, args.output, args.device, args.purpose, args.resume, args.dry_run,
+              args.hypotheses, tuple(args.only))
 
 
 if __name__ == '__main__':
