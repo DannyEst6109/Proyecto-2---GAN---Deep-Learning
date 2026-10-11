@@ -8,9 +8,9 @@ Se admiten retratos y cuerpos completos (v3); v2 se limitó a cuerpo completo.
 
 - **v2 (22 imágenes, CPU):** las tres variantes colapsaron; se conserva como evidencia
   de colapso de modos. Ver `docs/resultados_fullbody_v2.md`.
-- **v3 (956 imágenes del dataset v4, GPU):** código, datos, configuración e hipótesis listos y
-  probados de punta a punta. Falta ejecutar el entrenamiento en Colab con
-  `output/jupyter-notebook/parte_1_gan.ipynb`. Ver `docs/entrenamiento_v3.md`.
+- **v3 (956 imágenes del dataset v4, GPU):** entrenada en Colab. La base genera dragones
+  reconocibles; modelo elegido: base, época 450. Ver `docs/resultados_v3.md`.
+  Notebook: `output/jupyter-notebook/parte_1_gan.ipynb`; método: `docs/entrenamiento_v3.md`.
 
 Entorno local: desarrollo y ejecución con CPU, compartiendo código por GitHub.
 Entrenamiento v3: Google Colab con GPU T4 (en CPU cada época tarda ~30 s).
