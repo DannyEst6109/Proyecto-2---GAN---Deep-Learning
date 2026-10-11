@@ -38,6 +38,31 @@ no valores optimizados. Deben fijarse antes de comenzar las comparaciones.
 La semilla propuesta es 42. Ver `docs/experimentos.md` y
 `docs/entrega_dataset.md` antes de entrenar.
 
+## Persona 2: dataset, evaluación y presentación
+
+| Tarea | Documento | Código |
+|---|---|---|
+| Revisión y selección del dataset (v4, 956 imágenes) | `docs/ficha_dataset.md` | `scripts/review_dataset.py`, `scripts/close_dataset.py` |
+| Preparación y comprobación con el cargador | `docs/preparacion_dataset.md` | `scripts/loader_sample.py` |
+| Criterios y tabla de evaluación | `docs/criterios_evaluacion.md` | `scripts/evaluation_table.py` |
+| Vecinos más cercanos | `docs/vecinos_cercanos.md` | `scripts/nearest_neighbors.py` |
+| Galería final y tasa de selección | `docs/galeria_final.md` | `scripts/build_gallery.py` |
+| Presentación | `docs/presentacion_guion.md` | `scripts/build_presentation.py` |
+| Matriz de evidencias | `docs/matriz_evidencias.md` | |
+
+Con los candidatos de la parte 1 (`<candidatos>` = carpeta con PNG y `manifest.json`):
+
+```powershell
+.\.venv\Scripts\python.exe scripts/evaluation_table.py --candidates <candidatos>
+.\.venv\Scripts\python.exe scripts/evaluation_table.py --decide docs/data/evaluacion_candidatos.csv
+.\.venv\Scripts\python.exe scripts/build_gallery.py --candidates <candidatos>
+.\.venv\Scripts\python.exe -m scripts.nearest_neighbors --generated galeria --metric cnn
+.\.venv\Scripts\python.exe scripts/build_presentation.py
+```
+
+Pendiente hasta tener resultados del entrenamiento final: evaluación de
+candidatos, galería, vecinos de los diez personajes y las diapositivas de resultados.
+
 ## Entrega final pendiente
 
 - Código ejecutable y versiones de dependencias.
@@ -56,5 +81,9 @@ Se utilizó Codex para analizar las instrucciones, distribuir responsabilidades
 y preparar la estructura, el plan de experimentos y el código de modelo,
 entrenamiento, generación, búsqueda y curación asistida del dataset y pruebas técnicas
 con datos sintéticos. La curación requiere revisión del equipo.
+En la parte de persona 2 se utilizó Claude (Claude Code) como apoyo para revisar el
+dataset en hojas de contacto, programar los scripts de revisión, evaluación, vecinos
+más cercanos y galería, y redactar la documentación. Las decisiones de selección
+requieren confirmación del equipo.
 Actualizar esta declaración conforme se utilice asistencia adicional.
 Las imágenes finales deben provenir exclusivamente de la GAN entrenada por el equipo.
