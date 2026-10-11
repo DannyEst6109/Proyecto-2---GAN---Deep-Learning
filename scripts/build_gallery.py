@@ -13,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--candidates', type=Path, required=True, help='Carpeta con PNG y manifest.json.')
     parser.add_argument('--selection', type=Path, default=Path('docs/data/seleccion_final.csv'),
-                        help='CSV con columnas file y motivo.')
+                        help='CSV con columnas file y motivo; opcionales nombre y clase.')
     parser.add_argument('--output', type=Path, default=Path('galeria'))
     parser.add_argument('--total', type=int, help='Candidatos generados en total, si hubo varias tandas.')
     args = parser.parse_args()
@@ -37,7 +37,9 @@ def main():
         shutil.copyfile(args.candidates / row['file'], args.output / name)
         # Mismo formato que lee dragon_gan.generate --manifest para regenerar.
         characters.append({'file': name, 'seed': source['seed'], 'z': source['z']})
-        record.append({'id': name, 'candidato': row['file'], 'seed': source['seed'], 'motivo': row['motivo']})
+        # nombre y clase son opcionales (bonificación del enunciado).
+        record.append({'id': name, 'candidato': row['file'], 'seed': source['seed'],
+                       'nombre': row.get('nombre', ''), 'clase': row.get('clase', ''), 'motivo': row['motivo']})
 
     regeneration = {'checkpoint_sha256': manifest['checkpoint_sha256'], 'source_generated_count': total,
                     'characters': characters, 'selection_criteria': CRITERIA, 'status': 'final_gallery'}

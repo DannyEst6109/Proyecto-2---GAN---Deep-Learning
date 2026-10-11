@@ -6,10 +6,13 @@ procedimiento ya probado y se completa con los resultados reales.
 
 ## Procedimiento
 
+`<candidatos>` es la carpeta de candidatos del ZIP de la parte 1
+(`candidates_<variante>_<época>`), con sus PNG y `manifest.json`.
+
 1. Crear la tabla de evaluación a partir de los candidatos:
 
    ```powershell
-   .\.venv\Scripts\python.exe scripts/evaluation_table.py --candidates runs/candidates_v3
+   .\.venv\Scripts\python.exe scripts/evaluation_table.py --candidates <candidatos>
    ```
 
 2. Llenar las notas en `docs/data/evaluacion_candidatos.csv` según
@@ -20,12 +23,13 @@ procedimiento ya probado y se completa con los resultados reales.
    ```
 
 3. Escribir los diez elegidos en `docs/data/seleccion_final.csv`, con las
-   columnas `file` y `motivo`.
+   columnas `file` y `motivo`. Las columnas `nombre` y `clase` son opcionales
+   y sirven para la bonificación (nombre y rol de cada personaje).
 
 4. Armar la galería:
 
    ```powershell
-   .\.venv\Scripts\python.exe scripts/build_gallery.py --candidates runs/candidates_v3
+   .\.venv\Scripts\python.exe scripts/build_gallery.py --candidates <candidatos>
    ```
 
 5. Buscar los vecinos más cercanos de los diez (`docs/vecinos_cercanos.md`).
@@ -35,7 +39,7 @@ procedimiento ya probado y se completa con los resultados reales.
 | Archivo | Contenido |
 |---|---|
 | `personaje_01.png` … `personaje_10.png` | Los diez PNG, copia exacta del candidato |
-| `registro_seleccion.csv` | Identificador, candidato de origen, semilla y motivo |
+| `registro_seleccion.csv` | Identificador, candidato de origen, semilla, nombre, clase y motivo |
 | `galeria_selection.json` | Semilla y vector z de cada uno, y huella del checkpoint |
 
 `galeria_selection.json` es el manifiesto que entrega el generador de la parte 1,
