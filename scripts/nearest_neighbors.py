@@ -13,15 +13,35 @@ import matplotlib.pyplot as plt
 import torch
 import torch.nn.functional as F
 from PIL import Image
+from torchvision.models import ResNet18_Weights, resnet18
 from torchvision.transforms.functional import to_tensor
 
 from dragon_gan.data import DragonDataset
 
 
+def cnn_features(images):
+    """Características de ResNet-18 preentrenada en ImageNet (512 valores por imagen)."""
+    model = resnet18(weights=ResNet18_Weights.DEFAULT)
+    model.fc = torch.nn.Identity()
+    model.eval()
+    mean = torch.tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1)
+    std = torch.tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1)
+    outputs = []
+    with torch.no_grad():
+        for batch in images.split(64):
+            batch = F.interpolate(batch / 2 + 0.5, size=224, mode='bilinear', align_corners=False)
+            outputs.append(model((batch - mean) / std))
+    outputs = torch.cat(outputs)
+    # Norma fija: la distancia depende solo del ángulo entre vectores.
+    return F.normalize(outputs, dim=1) * outputs.shape[1] ** 0.5
+
+
 def features(images, metric):
-    """pixel: los 64×64×3 valores. forma: grises 16×16 sin brillo ni contraste."""
+    """pixel: los 64×64×3 valores. forma: grises 16×16 sin brillo ni contraste. cnn: ResNet-18."""
     if metric == 'pixel':
         return images.flatten(1)
+    if metric == 'cnn':
+        return cnn_features(images)
     small = F.avg_pool2d(images.mean(dim=1, keepdim=True), 4).flatten(1)
     small = small - small.mean(dim=1, keepdim=True)
     return small / small.std(dim=1, keepdim=True).clamp_min(1e-6)
@@ -45,7 +65,7 @@ def main():
     parser.add_argument('--generated', required=True, help='Carpeta con los PNG generados.')
     parser.add_argument('--data', default='data/dragons_final_v4')
     parser.add_argument('--output', type=Path, default=Path('docs/vecinos'))
-    parser.add_argument('--metric', choices=['pixel', 'forma'], default='pixel')
+    parser.add_argument('--metric', choices=['cnn', 'pixel', 'forma'], default='cnn')
     parser.add_argument('--k', type=int, default=5)
     args = parser.parse_args()
 
