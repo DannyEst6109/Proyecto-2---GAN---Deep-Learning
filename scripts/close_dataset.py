@@ -9,7 +9,7 @@ ACCEPTED = 'Dragón reconocible; sin texto, marco de carta ni recorte extremo.'
 
 
 def read_csv(path):
-    with open(path, encoding='utf-8', newline='') as source:
+    with open(path, encoding='utf-8-sig', newline='') as source:
         return list(csv.DictReader(source))
 
 

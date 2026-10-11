@@ -34,6 +34,8 @@ def distances(a, b):
 
 def load_generated(folder, size=64):
     files = sorted(Path(folder).glob('*.png'))
+    if not files:
+        raise FileNotFoundError(f'No hay PNG en {folder}')
     images = [to_tensor(Image.open(p).convert('RGB').resize((size, size))) * 2 - 1 for p in files]
     return files, torch.stack(images)
 

@@ -36,7 +36,8 @@ def decision(row):
 
 
 def decide(table):
-    with table.open(encoding='utf-8', newline='') as source:
+    # utf-8-sig: Excel guarda los CSV con BOM.
+    with table.open(encoding='utf-8-sig', newline='') as source:
         rows = list(csv.DictReader(source))
     for row in rows:
         row['decision'] = decision(row)
