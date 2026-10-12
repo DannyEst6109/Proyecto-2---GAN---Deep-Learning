@@ -15,7 +15,8 @@ def read_csv(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source', type=Path, default=Path('docs/data/curation_all_v3.csv'))
+    parser.add_argument('--source', type=Path, default=Path('docs/data/curation_final_v4.csv'),
+                        help='Listado con los 965 dragones del ZIP.')
     parser.add_argument('--exclusions', type=Path, default=Path('docs/data/exclusiones_persona2.csv'))
     parser.add_argument('--output', type=Path, default=Path('docs/data/curation_final_v4.csv'))
     args = parser.parse_args()

@@ -103,7 +103,7 @@ def main():
     for axis in axes.flat:
         axis.axis('off')
     figure.suptitle(f'Generada y sus {args.k} vecinas ({args.metric}); referencia real p5={p5:.3f}', fontsize=8)
-    figure.tight_layout()
+    figure.tight_layout(rect=(0, 0, 1, 0.98))
     figure.savefig(args.output / f'vecinos_{args.metric}.png', dpi=150)
 
     with (args.output / f'vecinos_{args.metric}.csv').open('w', encoding='utf-8', newline='') as target:
