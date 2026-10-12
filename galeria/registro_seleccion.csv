@@ -1,11 +1,11 @@
 id,candidato,seed,nombre,clase,motivo
-personaje_01.png,dragon_0002.png,1001,Ceniza Alta,Centinela de las torres,Figura erguida con cuello largo y alas; única en esa pose.
-personaje_02.png,dragon_0014.png,1013,Musgo Viejo,Guardián del pantano,Único de tono verde azulado sobre fondo ocre.
-personaje_03.png,dragon_0025.png,1024,Garra Sombría,Acechador nocturno,"Silueta oscura serpentina con garras, estilo boceto."
-personaje_04.png,dragon_0033.png,1032,Ámbar Errante,Mensajero de las dunas,Cuerpo serpentino naranja con cabeza y garra visibles.
-personaje_05.png,dragon_0053.png,1052,Fauce Carmesí,Heraldo de guerra,La cabeza de perfil más clara de los 200 candidatos.
-personaje_06.png,dragon_0055.png,1054,Vela Nocturna,Exploradora de tormentas,Figura violeta con alas y patas diferenciadas.
-personaje_07.png,dragon_0064.png,1063,Espina Jade,Custodio del bosque,Única paleta verde y dorada; preferida sobre 0068.
-personaje_08.png,dragon_0152.png,1151,Brasa Celeste,Campeón de los cielos,Dragón rojo sobre azul; preferido sobre 0150 y 0012.
-personaje_09.png,dragon_0164.png,1163,Llama Dorada,Portadora del fuego,Criatura naranja y amarilla en vuelo.
-personaje_10.png,dragon_0169.png,1168,Bruma Gris,Espectro de las cumbres,Único monocromo gris con alas.
+personaje_01.png,dragon_1575.png,2574,Fauce Carmesí,Heraldo de guerra,La cabeza de dragón más clara de los 2 000 candidatos.
+personaje_02.png,dragon_0773.png,1772,Ámbar Errante,Mensajero de las dunas,"Único con cabeza, lomo y cola en una sola figura."
+personaje_03.png,dragon_0630.png,1629,Cresta Sombría,Centinela de las torres,Cabeza de perfil con cresta de púas.
+personaje_04.png,dragon_0718.png,1717,Vela Nocturna,Exploradora de tormentas,"Cuello y cabeza con cuernos, tono violeta oscuro."
+personaje_05.png,dragon_0224.png,1223,Brasa Celeste,Campeón de los cielos,Dragón rojo sobre azul intenso; el de mayor contraste.
+personaje_06.png,dragon_1640.png,2639,Bruma Gris,Espectro de las cumbres,Único monocromo gris con mandíbula visible.
+personaje_07.png,dragon_1583.png,2582,Marea Azul,Guardián del río,"Única paleta azul sobre ocre, cuerpo enroscado."
+personaje_08.png,dragon_1257.png,2256,Llama Dorada,Portadora del fuego,Criatura dorada con alas abiertas.
+personaje_09.png,dragon_0919.png,1918,Garra Sombría,Acechador nocturno,Figura oscura alada sobre celeste.
+personaje_10.png,dragon_1717.png,2716,Paso Viejo,Rastreador de los valles,Único cuadrúpedo en marcha.
