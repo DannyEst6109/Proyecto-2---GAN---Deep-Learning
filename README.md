@@ -60,17 +60,28 @@ Con los candidatos de la parte 1 (`<candidatos>` = carpeta con PNG y `manifest.j
 .\.venv\Scripts\python.exe scripts/build_presentation.py
 ```
 
-Pendiente hasta tener resultados del entrenamiento final: evaluación de
-candidatos, galería, vecinos de los diez personajes y las diapositivas de resultados.
+Resultado: 200 candidatos evaluados, 10 personajes seleccionados (tasa de
+selección del 5 %) y ninguno es copia de una imagen de entrenamiento. Son
+siluetas de dragón, no dragones nítidos; ver `docs/evaluacion_candidatos.md`.
 
-## Entrega final pendiente
+## Entrega final
 
-- Código ejecutable y versiones de dependencias.
-- Pesos finales o enlace para descargarlos.
-- Galería de al menos 10 PNG con semillas o vectores z y tasa de selección.
-- Evidencias de ruido fijo, pérdidas interpretadas y vecinos más cercanos.
-- `presentacion.pdf`: máximo 12 diapositivas y anexos opcionales.
-- Matriz de evidencias, reflexión final y limitaciones.
+| Entregable | Ubicación |
+|---|---|
+| Presentación | `presentacion.pdf` (editable: `presentacion.pptx`) |
+| Galería de 10 PNG con semillas y vectores z | `galeria/` |
+| Pesos del generador elegido (base, época 450) | `pesos/generator_epoch_0450.pt` |
+| Código | `dragon_gan/`, `scripts/`, `output/jupyter-notebook/parte_1_gan.ipynb` |
+| Matriz de evidencias | `docs/matriz_evidencias.md` y diapositiva 12 |
+
+Regenerar la galería desde los pesos y los vectores z:
+
+```powershell
+.\.venv\Scripts\python.exe -m dragon_gan.generate --checkpoint pesos/generator_epoch_0450.pt --output runs/galeria_regenerada --manifest galeria/galeria_selection.json
+```
+
+Semillas: 42 para el entrenamiento, 43 para el ruido fijo y 1000–1199 para los
+200 candidatos. Las de los diez personajes están en `galeria/registro_seleccion.csv`.
 
 ## Uso de asistentes de IA
 
