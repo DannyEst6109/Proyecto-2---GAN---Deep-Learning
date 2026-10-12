@@ -1,10 +1,10 @@
 # Guion de la presentación
 
 Fuente de `presentacion.pptx`: cada sección `##` es una diapositiva, cada viñeta
-es una línea de texto y la imagen (si existe el archivo) va a la derecha.
-Generar con `python scripts/build_presentation.py`. Máximo 12 diapositivas;
-lo que va después de la 12 son anexos. Las líneas con PENDIENTE se reemplazan
-con resultados reales del entrenamiento final.
+es una línea de texto, las filas con `|` forman una tabla y la imagen va a la
+derecha (o abajo si es muy ancha). Generar con
+`python scripts/build_presentation.py`. Máximo 12 diapositivas; lo que va
+después son anexos.
 
 ## 1. Dragones de fantasía medieval generados con una GAN
 
@@ -34,7 +34,8 @@ con resultados reales del entrenamiento final.
 - Canales del generador: 512, 256, 128, 64, 3 (3,6 millones de parámetros)
 - Discriminador: 4 convoluciones con BatchNorm y LeakyReLU(0,2) → 1 logit (2,8 millones)
 - Adam, lr 0,0002, betas (0,5; 0,999), lote 64, 600 épocas, semilla 42
-- El código regenera la galería desde las semillas y vectores z guardados
+- Entrenada en Colab con GPU T4: unos 15 minutos por variante
+- El código regenera la galería desde los pesos y los vectores z guardados
 
 ## 4. Experimentos: hipótesis previas y control
 
@@ -47,68 +48,89 @@ con resultados reales del entrenamiento final.
 
 ## 5. Resultados de los experimentos
 
-- PENDIENTE: tabla con D(real), D(fake), pérdida D y diversidad por variante
-- PENDIENTE: ¿se cumplió la hipótesis de pérdida? Evidencia
-- PENDIENTE: ¿se cumplió la hipótesis de estabilización? Evidencia
-- PENDIENTE: modelo y época elegidos, y por qué
+- Pérdida, hipótesis confirmada: con minimax D llega a pérdida ≈ 0 en 554 de 600 épocas y G no recibe gradiente; solo produce un patrón de tablero
+- Estabilización, hipótesis rechazada: D ya no domina (D(fake) ≈ 0,52) pero G colapsa en una mancha gris; la diversidad cae de 0,26 a 0,03
+- Curvas equilibradas no significaron un entrenamiento sano
+- La base es la única con siluetas variadas; diversidad ≈ 0,6
+- Modelo elegido: base, época 450. Entre 450 y 600 ya no mejora
+- Columnas de la figura: base, minimax, norm. espectral. Filas: épocas 0, 150, 300, 450, 600
 
-## 6. Evidencia 1: rejilla de ruido fijo
+![Ruido fijo por variante](img/v3_ruido_fijo_variantes.png)
 
-- Los mismos 16 vectores z en varias épocas
-- PENDIENTE: en qué época aparecen formas reconocibles
-- PENDIENTE: posiciones que empiezan a parecerse entre sí
+## 6. Evidencia 1: rejilla de ruido fijo (base)
+
+- Los mismos 16 vectores z en las épocas 0, 10, 50, 150, 300, 450 y 600
+- Época 50: solo textura. Época 150: aparecen trazos de alas y color. Época 300: siluetas
+- De 450 a 600 las siluetas casi no cambian
+- Las 16 posiciones siguen siendo distintas entre sí: no hay colapso en la base
+
+![Evolución del ruido fijo](img/v3_evolucion_base.png)
 
 ## 7. Evidencia 2: curvas de pérdida interpretadas
 
-- En una GAN sana las curvas no bajan juntas: se estabilizan enfrentadas
-- PENDIENTE: qué muestran las curvas de G y D de cada variante
-- PENDIENTE: épocas con D cercano a cero o picos de G
+- Base: G alta (≈ 5) y D baja con picos periódicos; D domina 268 épocas, señal de alarma, pero G sigue aprendiendo
+- Minimax: D ≈ 0 y G ≈ 0 casi todo el tiempo. Es saturación, no éxito
+- Norm. espectral: curvas planas y enfrentadas (D ≈ 0,40; G ≈ 0,68), pero las imágenes colapsaron
+- Las pérdidas de G no son comparables entre variantes: tienen objetivos distintos
+- Conclusión: la curva sola engaña; hay que mirarla junto al ruido fijo
+
+![Curvas](img/v3_curvas.png)
 
 ## 8. Problemas encontrados y decisiones
 
 - Primera selección: solo cuerpo completo, 22 imágenes
-- Resultado: colapso de modos. Las 16 muestras eran casi iguales y D(fake) ≈ 0,01
-- 0 de 600 candidatos aceptados. Se conserva como evidencia del fallo
-- Decisión: usar todos los dragones, agregar volteo y subir a 64 canales base
+- Resultado: colapso de modos en las tres variantes; 0 de 600 candidatos aceptados
+- Decisión: usar todos los dragones revisados (956), volteo y 64 canales base
 - Decisión: cambiar la estabilización de ruido en D a normalización espectral
-- PENDIENTE: problemas observados en el entrenamiento final
+- Entrenamiento final: la normalización espectral volvió a colapsar
+- Calidad: el modelo aprende color, fondo y trazos, pero no la anatomía completa
+- Ningún candidato llegó a "dragón claro"; se declara en la galería
 
 ## 9. Galería: diez personajes
 
-- PENDIENTE: los diez PNG con nombre y clase
-- PENDIENTE: tasa de selección = 10 ÷ candidatos generados × 100
+- 200 candidatos generados (semillas 1000–1199). Tasa de selección: 10 ÷ 200 = 5 %
 - Criterio: seis notas de 0 a 2 definidas antes de ver los candidatos
-- Se acepta con dragón = 2, ningún criterio en 0 y suma de 9 o más
+- Resultado: 0 aceptados, 12 en reserva, 188 descartados. Los diez salen de la reserva
+- Son siluetas de dragón, no dragones nítidos
+- Fila 1: Ceniza Alta (centinela), Musgo Viejo (guardián), Garra Sombría (acechador), Ámbar Errante (mensajero), Fauce Carmesí (heraldo)
+- Fila 2: Vela Nocturna (exploradora), Espina Jade (custodio), Brasa Celeste (campeón), Llama Dorada (portadora del fuego), Bruma Gris (espectro)
+
+![Galería](img/galeria_mosaico.png)
 
 ## 10. Evidencia 3: vecinos más cercanos
 
-- Cada personaje junto a sus 5 imágenes de entrenamiento más parecidas
-- Métrica principal: características de ResNet-18 preentrenada
-- Comprobaciones: píxeles y forma en grises; también contra imágenes volteadas
-- Referencia: distancia entre imágenes reales. Alerta si queda bajo el percentil 5
-- Prueba del método: detecta una copia exacta y una volteada con distancia 0
-- PENDIENTE: figura y distancias de los diez personajes
+- Cada personaje (izquierda) junto a sus 5 imágenes de entrenamiento más parecidas
+- Métrica: características de ResNet-18 preentrenada; también píxeles y forma
+- Se compara además contra las imágenes volteadas
+- Referencia: distancia entre imágenes reales (percentil 5 = 0,240)
+- Los diez quedan entre 0,60 y 0,74: ninguno es copia
+- Dos alertas en píxeles (04 y 07): coincide el fondo pardo, no la figura
+- Los vecinos comparten paleta y fondo con el personaje
+- Prueba del método: copia exacta y copia volteada dan distancia 0
+
+![Vecinos con ResNet-18](vecinos/vecinos_cnn.png)
 
 ## 11. Reflexión, conclusiones y limitaciones
 
-- PENDIENTE: el personaje más difícil de defender como nuevo y qué dice de lo que aprendió la GAN
-- PENDIENTE: conclusiones de los dos experimentos
-- Limitación: datos sintéticos que heredan errores de anatomía de Stable Diffusion
-- Limitación: 956 imágenes de estilos mezclados y resolución de 64×64
-- Limitación: una sola semilla; la evaluación visual es subjetiva
-- Los vecinos aportan evidencia de semejanza, no prueban novedad
+- Más difícil de defender: Ámbar Errante (04). Es el más cercano en píxeles (0,281) a una imagen real: mismo fondo pardo y tonos naranjas, aunque otra figura
+- Qué aprendió la GAN: primero fondos, paletas y trazos de escamas; la estructura del dragón solo en parte. Lo nuevo es la forma; el color viene del dataset
+- La pérdida no saturante fue necesaria; la normalización espectral, tal como se aplicó, empeoró
+- Los datos importaron más que la arquitectura: de 22 a 956 imágenes se pasó de colapso a variedad
+- Limitaciones: datos sintéticos de estilos mezclados, 64×64, una sola semilla y evaluación visual subjetiva
+- Estar lejos de los vecinos no prueba novedad: también refleja menor calidad
 
 ## 12. Matriz de evidencias
 
-- Universo y datos · diap. 1 y 2 · origen CC0 documentado · datos sintéticos
-- GAN y regeneración · diap. 3 · PENDIENTE · PENDIENTE
-- Experimento de pérdida · diap. 4 y 5 · PENDIENTE · una semilla
-- Experimento de estabilización · diap. 4 y 5 · PENDIENTE · una semilla
-- Ruido fijo · diap. 6 · PENDIENTE · 16 vectores
-- Curvas de pérdida · diap. 7 · PENDIENTE · no miden calidad
-- Galería y tasa de selección · diap. 9 · PENDIENTE · selección subjetiva
-- Vecinos más cercanos · diap. 10 · PENDIENTE · no prueban novedad
-- Fallos y colapso · diap. 8 · colapso con 22 imágenes · causa no aislada
+| Evidencia | Diap. | Conclusión | Limitación |
+| Universo y datos con licencia CC0 | 1, 2 | 956 imágenes revisadas y documentadas | Datos sintéticos de Stable Diffusion |
+| DCGAN y código que regenera la galería | 3 | Regenera los 10 con diferencia máxima de 1/255 | Igualdad exacta solo en el mismo entorno |
+| Experimento de pérdida | 4, 5 | Hipótesis confirmada: minimax satura | Una sola semilla |
+| Experimento de estabilización | 4, 5 | Hipótesis rechazada: colapso con norm. espectral | No se probó otra tasa para D |
+| Rejilla de ruido fijo | 5, 6 | Siluetas desde la época 150; sin colapso en la base | Solo 16 vectores z |
+| Curvas de pérdida | 7 | D domina en la base; curvas planas no implican calidad | No miden calidad ni novedad |
+| Galería y tasa de selección | 9 | 10 de 200 (5 %); 0 aceptados, 10 de reserva | Siluetas abstractas; evaluación subjetiva |
+| Vecinos más cercanos | 10 | Ninguna copia; dos alertas por fondo | No prueban novedad |
+| Fallos y colapso de modos | 5, 8 | Colapso con 22 imágenes y con norm. espectral | Causa no aislada con experimentos |
 
 ## Anexo A. Criterios de evaluación de candidatos
 
@@ -118,9 +140,23 @@ con resultados reales del entrenamiento final.
 - anatomia: ¿tiene deformaciones?
 - distinto: ¿se diferencia de otros candidatos?
 - novedad: ¿se diferencia del entrenamiento?
+- Aceptar: dragon = 2, ningún 0 y suma ≥ 9. Reserva: dragon ≥ 1, ningún 0 y suma de 7 u 8
 
-## Anexo B. Uso de asistentes de IA
+## Anexo B. Vecinos más cercanos en píxeles
 
-- Se usaron asistentes de IA para programar, revisar el dataset y documentar
+- Alertas en los personajes 04 y 07 (percentil 5 = 0,303)
+- La vecina común es una cabeza marrón sobre fondo pardo liso
+
+![Vecinos en píxeles](vecinos/vecinos_pixel.png)
+
+## Anexo C. Diversidad del ruido fijo por época
+
+- Distancia media entre las 16 muestras; cerca de 0 significa colapso
+
+![Diversidad](img/v3_diversidad.png)
+
+## Anexo D. Uso de asistentes de IA
+
+- Se usaron Codex y Claude Code para programar, revisar el dataset y documentar
 - Detalle en README.md
 - Ninguna imagen de la galería proviene de un generador externo
