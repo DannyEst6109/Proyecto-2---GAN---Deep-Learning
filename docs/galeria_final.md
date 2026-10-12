@@ -4,18 +4,18 @@ Modelo: base (pérdida no saturante), época 450. Pesos: `pesos/generator_epoch_
 
 ![Galería](img/galeria_mosaico.png)
 
-| Id | Nombre | Clase | Candidato | Semilla | Motivo |
-|---|---|---|---|---:|---|
-| `personaje_01.png` | Ceniza Alta | Centinela de las torres | `dragon_0002` | 1001 | Figura erguida con cuello largo y alas |
-| `personaje_02.png` | Musgo Viejo | Guardián del pantano | `dragon_0014` | 1013 | Único verde azulado sobre fondo ocre |
-| `personaje_03.png` | Garra Sombría | Acechador nocturno | `dragon_0025` | 1024 | Silueta oscura serpentina con garras |
-| `personaje_04.png` | Ámbar Errante | Mensajero de las dunas | `dragon_0033` | 1032 | Cuerpo serpentino naranja con cabeza y garra |
-| `personaje_05.png` | Fauce Carmesí | Heraldo de guerra | `dragon_0053` | 1052 | La cabeza de perfil más clara |
-| `personaje_06.png` | Vela Nocturna | Exploradora de tormentas | `dragon_0055` | 1054 | Figura violeta con alas y patas |
-| `personaje_07.png` | Espina Jade | Custodio del bosque | `dragon_0064` | 1063 | Única paleta verde y dorada |
-| `personaje_08.png` | Brasa Celeste | Campeón de los cielos | `dragon_0152` | 1151 | Dragón rojo sobre azul |
-| `personaje_09.png` | Llama Dorada | Portadora del fuego | `dragon_0164` | 1163 | Criatura naranja y amarilla en vuelo |
-| `personaje_10.png` | Bruma Gris | Espectro de las cumbres | `dragon_0169` | 1168 | Único monocromo gris con alas |
+| Id | Nombre | Clase | Candidato | Semilla | Decisión | Motivo |
+|---|---|---|---|---:|---|---|
+| `personaje_01.png` | Fauce Carmesí | Heraldo de guerra | `dragon_1575` | 2574 | aceptar | La cabeza de dragón más clara |
+| `personaje_02.png` | Ámbar Errante | Mensajero de las dunas | `dragon_0773` | 1772 | aceptar | Cabeza, lomo y cola en una figura |
+| `personaje_03.png` | Cresta Sombría | Centinela de las torres | `dragon_0630` | 1629 | aceptar | Cabeza de perfil con cresta de púas |
+| `personaje_04.png` | Vela Nocturna | Exploradora de tormentas | `dragon_0718` | 1717 | reserva | Cuello y cabeza con cuernos |
+| `personaje_05.png` | Brasa Celeste | Campeón de los cielos | `dragon_0224` | 1223 | aceptar | Rojo sobre azul intenso |
+| `personaje_06.png` | Bruma Gris | Espectro de las cumbres | `dragon_1640` | 2639 | reserva | Único monocromo gris |
+| `personaje_07.png` | Marea Azul | Guardián del río | `dragon_1583` | 2582 | reserva | Única paleta azul sobre ocre |
+| `personaje_08.png` | Llama Dorada | Portadora del fuego | `dragon_1257` | 2256 | reserva | Criatura dorada con alas abiertas |
+| `personaje_09.png` | Garra Sombría | Acechador nocturno | `dragon_0919` | 1918 | reserva | Figura oscura alada sobre celeste |
+| `personaje_10.png` | Paso Viejo | Rastreador de los valles | `dragon_1717` | 2716 | reserva | Único cuadrúpedo en marcha |
 
 Los nombres y clases los puso el equipo; el modelo solo genera la imagen.
 
@@ -23,13 +23,13 @@ Los nombres y clases los puso el equipo; el modelo solo genera la imagen.
 
 | Dato | Valor |
 |---|---|
-| Candidatos generados | 200 (semillas 1000–1199) |
+| Candidatos generados | 2 000 (semillas 1000–2999) |
 | Personajes seleccionados | 10 |
-| Tasa de selección | 10 ÷ 200 × 100 = **5 %** |
+| Tasa de selección | 10 ÷ 2 000 × 100 = **0,5 %** |
 
-Criterio: `docs/criterios_evaluacion.md`. Resultado de la evaluación:
-`docs/evaluacion_candidatos.md`. Ningún candidato alcanzó la categoría
-"aceptar"; los diez salen de los doce en "reserva".
+Criterio: `docs/criterios_evaluacion.md`. Procedimiento y resultado:
+`docs/evaluacion_candidatos.md`. En una primera ronda de 200 candidatos ninguno
+alcanzó "aceptar"; por eso se amplió a 2 000 con el mismo modelo.
 
 ## Contenido de `galeria/`
 
@@ -48,19 +48,19 @@ Criterio: `docs/criterios_evaluacion.md`. Resultado de la evaluación:
 El comando comprueba que el checkpoint sea el declarado (SHA-256) y genera los
 diez PNG desde sus vectores z.
 
-Comprobación del 11 de octubre de 2026 en CPU local (PyTorch 2.14.1): los diez
-se regeneran con una diferencia máxima de 1 nivel sobre 255 por píxel respecto
-a los originales generados en Colab (PyTorch 2.11.0). No son idénticos byte a
-byte porque cambia la versión de PyTorch y el hardware.
+Comprobación del 11 de octubre de 2026: los diez PNG regenerados son idénticos
+byte a byte a los de `galeria/` (CPU, PyTorch 2.14.1). En otro entorno puede
+haber diferencias de 1 nivel sobre 255 por píxel: así ocurrió al comparar con
+los candidatos generados en Colab con PyTorch 2.11.0.
 
 ## Procedimiento seguido
 
-`<candidatos>` es la carpeta `candidates_base_450` del ZIP de la parte 1.
-
 ```powershell
-.\.venv\Scripts\python.exe scripts/evaluation_table.py --candidates <candidatos>
+.\.venv\Scripts\python.exe -m dragon_gan.generate --checkpoint pesos/generator_epoch_0450.pt --output runs/candidates_2000 --count 2000 --seed 1000
+.\.venv\Scripts\python.exe -m scripts.rank_candidates --candidates runs/candidates_2000 --sheets runs/hojas_prefiltro
+.\.venv\Scripts\python.exe scripts/evaluation_table.py --candidates runs/candidates_2000
 .\.venv\Scripts\python.exe scripts/evaluation_table.py --decide docs/data/evaluacion_candidatos.csv
-.\.venv\Scripts\python.exe scripts/build_gallery.py --candidates <candidatos>
+.\.venv\Scripts\python.exe scripts/build_gallery.py --candidates runs/candidates_2000
 .\.venv\Scripts\python.exe -m scripts.nearest_neighbors --generated galeria --metric cnn
 ```
 
