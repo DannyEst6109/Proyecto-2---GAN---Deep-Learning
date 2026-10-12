@@ -6,7 +6,7 @@ derecha (o abajo si es muy ancha). Generar con
 `python scripts/build_presentation.py`. Máximo 12 diapositivas; lo que va
 después son anexos.
 
-## 1. Dragones de fantasía medieval generados con una GAN
+## 1. Dragones de fantasía medieval con una GAN
 
 - Proyecto 2 · Deep Learning 2026 · Universidad del Valle de Guatemala
 - Daniel Estrada y Daniela Ramírez de León
@@ -15,6 +15,8 @@ después son anexos.
 - Estilo: ilustración, colores terrosos y oscuros, cielos y fondos simples
 - Referencia visual: Game of Thrones. Los personajes deben ser nuevos
 - Vara para juzgar la galería: que se reconozca un dragón, con cabeza y cuerpo o alas, y que no repita a otro
+
+![Galería](img/galeria_nombres.png)
 
 ## 2. Datos: origen, permiso y preparación
 
@@ -54,9 +56,7 @@ después son anexos.
 - Curvas equilibradas no significaron un entrenamiento sano
 - La base es la única con siluetas variadas; diversidad ≈ 0,6
 - Modelo elegido: base, época 450. Entre 450 y 600 ya no mejora
-- Columnas de la figura: base, minimax, norm. espectral. Filas: épocas 0, 150, 300, 450, 600
-
-![Ruido fijo por variante](img/v3_ruido_fijo_variantes.png)
+![Ruido fijo en la época 450](img/v3_ruido_fijo_450.png)
 
 ## 6. Evidencia 1: rejilla de ruido fijo (base)
 
@@ -94,23 +94,20 @@ después son anexos.
 - Se revisaron los 2 000 en hojas de contacto y se calificaron uno por uno los 72 mejores
 - Resultado: 9 aceptados (dragón claro), 63 en reserva y 1 928 descartados
 - Los diez: 8 aceptados y 2 de reserva, elegidos por variedad de pose y color
-- Fila 1: Fauce Carmesí (heraldo), Ámbar Errante (mensajero), Cresta Sombría (centinela), Bruma Gris (espectro), Brasa Celeste (campeón)
-- Fila 2: Marea Azul (guardián), Garra Sombría (acechador), Vela Nocturna (exploradora), Llama Dorada (portadora del fuego), Ala Escarlata (jinete)
+- Nombre y clase de cada personaje puestos por el equipo
 
-![Galería](img/galeria_mosaico.png)
+![Galería](img/galeria_nombres.png)
 
 ## 10. Evidencia 3: vecinos más cercanos
 
-- Cada personaje (izquierda) junto a sus 5 imágenes de entrenamiento más parecidas
-- Métrica: características de ResNet-18 preentrenada; también píxeles y forma
-- Se compara además contra las imágenes volteadas
+- Arriba cada personaje; abajo su imagen de entrenamiento más parecida y la distancia
+- Métrica: ResNet-18 preentrenada; también píxeles y forma, y contra imágenes volteadas
 - Referencia: distancia entre imágenes reales (percentil 5 = 0,240)
 - Los diez quedan entre 0,60 y 0,73: ninguno es copia y no hay alertas
-- Los vecinos comparten paleta y fondo con el personaje
-- Un mismo dragón real es vecino de cuatro personajes
-- Prueba del método: copia exacta y copia volteada dan distancia 0
+- Los vecinos comparten paleta y fondo; un mismo dragón real es vecino de varios personajes
+- Prueba del método: una copia exacta y una volteada dan distancia 0
 
-![Vecinos con ResNet-18](vecinos/vecinos_cnn.png)
+![Vecinos con ResNet-18](vecinos/vecinos_cnn_resumen.png)
 
 ## 11. Reflexión, conclusiones y limitaciones
 
@@ -144,12 +141,12 @@ después son anexos.
 - novedad: ¿se diferencia del entrenamiento?
 - Aceptar: dragon = 2, ningún 0 y suma ≥ 9. Reserva: dragon ≥ 1, ningún 0 y suma de 7 u 8
 
-## Anexo B. Vecinos más cercanos en píxeles
+## Anexo B. Vecinos más cercanos: detalle
 
-- Sin alertas: todos sobre el percentil 5 entre reales (0,303)
-- El más cercano es Llama Dorada (09), a 0,324, por su fondo pardo
+- Cada fila: personaje y sus 5 vecinas más cercanas con ResNet-18
+- En píxeles tampoco hay alertas: el más cercano es Llama Dorada (09), a 0,324 (umbral 0,303)
 
-![Vecinos en píxeles](vecinos/vecinos_pixel.png)
+![Vecinos con ResNet-18](vecinos/vecinos_cnn.png)
 
 ## Anexo C. Diversidad del ruido fijo por época
 
