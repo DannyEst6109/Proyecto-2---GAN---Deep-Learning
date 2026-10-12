@@ -6,6 +6,8 @@ import json
 import shutil
 from pathlib import Path
 
+from PIL import Image
+
 CRITERIA = 'docs/criterios_evaluacion.md'
 
 
@@ -15,6 +17,7 @@ def main():
     parser.add_argument('--selection', type=Path, default=Path('docs/data/seleccion_final.csv'),
                         help='CSV con columnas file y motivo; opcionales nombre y clase.')
     parser.add_argument('--output', type=Path, default=Path('galeria'))
+    parser.add_argument('--mosaic', type=Path, default=Path('docs/img/galeria_mosaico.png'))
     parser.add_argument('--total', type=int, help='Candidatos generados en total, si hubo varias tandas.')
     args = parser.parse_args()
 
@@ -48,6 +51,14 @@ def main():
         writer = csv.DictWriter(target, fieldnames=record[0].keys())
         writer.writeheader()
         writer.writerows(record)
+
+    # Mosaico ampliado para la presentación; los PNG individuales no se modifican.
+    mosaic = Image.new('RGB', (5 * 200, -(-len(characters) // 5) * 200), 'white')
+    for index, row in enumerate(characters):
+        with Image.open(args.output / row['file']) as picture:
+            mosaic.paste(picture.convert('RGB').resize((192, 192), Image.Resampling.BICUBIC),
+                         (index % 5 * 200 + 4, index // 5 * 200 + 4))
+    mosaic.save(args.mosaic)
 
     print(f'Personajes: {len(selection)}. Candidatos generados: {total}.')
     print(f'Tasa de selección: {len(selection)} / {total} × 100 = {rate:.1f} %')
