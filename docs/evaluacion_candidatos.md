@@ -14,37 +14,41 @@ de ver los resultados. Tabla completa: `docs/data/evaluacion_candidatos.csv`.
 
 ## Procedimiento de la ronda final
 
-1. **Prefiltro automático** (`scripts/rank_candidates.py`): se ordenan los
-   2 000 por la distancia de sus características ResNet-18 a la imagen real más
-   cercana. Los más cercanos se parecen más a un dragón real. Resultado en
-   `docs/data/prefiltro_candidatos.csv`.
-2. **Revisión visual** de los 400 primeros en hojas de contacto.
-3. **Nota individual** con los seis criterios a los 36 mejores, ampliados.
-4. **Vecinos más cercanos** de los preseleccionados para la nota de novedad.
+1. **Orden automático** (`scripts/rank_candidates.py`): se ordenan los 2 000
+   por la distancia de sus características ResNet-18 a la imagen real más
+   cercana. Resultado en `docs/data/prefiltro_candidatos.csv`.
+2. **Revisión visual de los 2 000** en veinte hojas de contacto de 100.
+3. **Nota individual** con los seis criterios a los 72 mejores, ampliados.
+4. **Vecinos más cercanos** de esos 72 para la nota de novedad.
+
+El orden automático solo sirvió para organizar la revisión. No basta como
+filtro: 5 de los 9 aceptados estaban fuera de sus 400 primeros puestos, así
+que revisar solo esos habría dejado fuera a los mejores.
 
 ## Resultado
 
 | Decisión | Cantidad | Descripción |
 |---|---:|---|
-| aceptar | 4 | Dragón claro: cabeza con hocico o cuerpo completo |
-| reserva | 32 | Silueta de criatura con cabeza y cuerpo o alas distinguibles |
-| descartar | 365 | Silueta parcial o textura, sin cabeza ni extremidades definidas |
-| sin revisar | 1 599 | Fuera de los 400 primeros del prefiltro |
+| aceptar | 9 | Dragón claro: cabeza con hocico o cuerpo completo |
+| reserva | 63 | Silueta de criatura con cabeza y cuerpo o alas distinguibles |
+| descartar | 1 928 | Silueta parcial o textura, sin figura reconocible |
 
-Los 365 descartados recibieron la misma nota en grupo. Se evaluaron 401 y no
-400 porque un candidato de la primera ronda quedó fuera del prefiltro.
+Los 1 928 descartados recibieron su nota en grupo, no una por una.
+Dos candidatos de la reserva tuvieron alerta de vecinos (`dragon_0033` en
+píxeles y `dragon_1390` en forma) y no se consideraron para la galería.
 
 ## Selección
 
-Los diez finales son los 4 aceptados más 6 de la reserva, elegidos por mayor
-nota y por variedad de pose y paleta. De la reserva se dejaron fuera los que
-repetían a otro (por ejemplo `dragon_1587`, parecido a `dragon_0630`).
+Los diez finales son 8 de los 9 aceptados más 2 de la reserva. El aceptado
+que quedó fuera (`dragon_0723`) es una cabeza gris muy parecida a
+`dragon_0987`. Los dos de reserva (`dragon_1257` y `dragon_0034`) se eligieron
+por aportar paletas que no estaban entre los aceptados.
 Motivo de cada uno: `galeria/registro_seleccion.csv`.
 
 **Tasa de selección: 10 ÷ 2 000 × 100 = 0,5 %.**
 
-Seguimos declarando el límite del modelo: solo 4 de 2 000 son dragones claros;
-los otros 6 personajes son siluetas reconocibles pero con anatomía incompleta.
+Seguimos declarando el límite del modelo: solo 9 de 2 000 (0,45 %) son
+dragones claros, y aun esos tienen anatomía incompleta.
 
 ## Comparación entre experimentos
 
@@ -59,7 +63,5 @@ Mismas 16 posiciones de ruido fijo (`docs/img/v3_ruido_fijo_variantes.png`):
 ## Limitaciones
 
 - Evaluación visual hecha sobre imágenes de 64×64 ampliadas.
-- El prefiltro favorece a los candidatos parecidos a imágenes reales; por eso
-  la prueba de vecinos se aplica después a los elegidos.
-- 1 599 candidatos no se revisaron uno por uno.
+- Los descartados se revisaron en hojas de contacto, con miniaturas de 128 px.
 - Los nombres y clases de los personajes los puso el equipo, no el modelo.
