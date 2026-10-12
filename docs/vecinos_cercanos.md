@@ -95,13 +95,13 @@ percentil 5 entre imágenes reales):
 | 01 Fauce Carmesí | 0,602 | 0,441 | 0,865 | No |
 | 02 Ámbar Errante | 0,603 | 0,383 | 0,915 | No |
 | 03 Cresta Sombría | 0,596 | 0,449 | 0,929 | No |
-| 04 Vela Nocturna | 0,591 | 0,462 | 0,951 | No |
+| 04 Bruma Gris | 0,650 | 0,354 | 0,995 | No |
 | 05 Brasa Celeste | 0,624 | 0,628 | 0,943 | No |
-| 06 Bruma Gris | 0,637 | 0,406 | 1,010 | No |
-| 07 Marea Azul | **0,578** | 0,478 | 1,017 | No |
-| 08 Llama Dorada | 0,603 | 0,324 | 1,065 | No |
-| 09 Garra Sombría | 0,613 | 0,634 | 1,108 | No |
-| 10 Paso Viejo | 0,640 | 0,436 | 1,026 | No |
+| 06 Marea Azul | 0,727 | 0,458 | 0,907 | No |
+| 07 Garra Sombría | 0,704 | 0,497 | 1,017 | No |
+| 08 Vela Nocturna | 0,682 | 0,415 | **0,771** | No, pero al límite en `forma` |
+| 09 Llama Dorada | 0,603 | 0,324 | 1,065 | No |
+| 10 Ala Escarlata | 0,647 | 0,484 | 0,938 | No |
 
 ### Interpretación
 
@@ -109,30 +109,31 @@ percentil 5 entre imágenes reales):
   tres métricas da alerta y en las figuras ninguna silueta coincide con la de
   su vecina.
 - **Los vecinos comparten color y fondo con el personaje.** Rojo sobre celeste
-  para 01, 04 y 05; gris para 06 y 10; azul sobre ocre para 07. El generador
-  aprendió las combinaciones de color del dataset.
+  para 01, 05 y 10; gris para 04 y 07; azules sobre fondos cálidos para 06.
+  El generador aprendió las combinaciones de color del dataset.
 - **Un mismo dragón real aparece como vecino de varios personajes** (la cabeza
-  roja sobre fondo verde azulado, en 01, 02, 03 y 04). Indica que esa zona del
-  dataset pesa mucho en lo que el modelo genera.
+  roja sobre fondo verde azulado, en 01, 02, 03 y 04). Esa zona del dataset
+  pesa mucho en lo que el modelo genera.
 - **Estar lejos no es solo buena noticia.** En `cnn` los personajes están a
-  0,58–0,64 de su vecina, el doble de la mediana entre reales (0,302). No son
+  0,60–0,73 de su vecina, el doble de la mediana entre reales (0,302). No son
   copias, pero tampoco tienen el detalle de un dragón del dataset.
 
 ### El personaje más difícil de defender
 
-**07, Marea Azul.** Es el más cercano a una imagen real según ResNet-18
-(0,578). Su vecina es un dragón azul enroscado sobre fondo ocre: la misma
-paleta, el mismo fondo y una composición circular parecida. La figura no es la
-misma —no coinciden cabeza, patas ni contorno, y en `forma` queda por encima
-de la mediana entre reales—, pero la idea visual sí viene de esa imagen.
+**08, Vela Nocturna.** En `forma` queda a 0,771 de su vecina, prácticamente
+en el umbral de alerta (0,768). La vecina es una cabeza de dragón oscura de
+perfil, con la boca abierta, y volteada apunta hacia el mismo lado que la
+nuestra: misma pose y misma distribución de luz y sombra. No es una copia —en
+`cnn` y `pixel` queda lejos, y cambian la cresta, el color y el fondo—, pero
+la silueta general sí coincide.
 
-Este caso muestra qué aprendió la GAN: primero lo más fácil y repetido del
-dataset —fondos lisos, paletas y trazos de escamas—, y solo parcialmente la
-estructura de un dragón. La novedad de nuestros personajes está en la forma;
-el color y el fondo están tomados del dataset.
+Este caso muestra qué aprendió la GAN. Las cabezas de perfil son el encuadre
+más repetido del dataset y es justo donde el modelo produce sus dragones más
+claros: 4 de nuestros 10 personajes son cabezas de perfil. La novedad está en
+los detalles y el color; la composición la tomó de lo más frecuente en los datos.
 
-### Primera ronda
+### Rondas anteriores
 
-Con la galería inicial (10 de 200 candidatos) hubo dos alertas en `pixel` por
+Con la primera galería (10 de 200 candidatos) hubo dos alertas en `pixel` por
 fondos pardos casi idénticos a una imagen real. Esa galería se reemplazó al
 ampliar a 2 000 candidatos; ver `docs/evaluacion_candidatos.md`.
