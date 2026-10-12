@@ -84,16 +84,16 @@ después son anexos.
 - Decisión: cambiar la estabilización de ruido en D a normalización espectral
 - Entrenamiento final: la normalización espectral volvió a colapsar
 - Calidad: el modelo aprende color, fondo y trazos, pero no la anatomía completa
-- Ningún candidato llegó a "dragón claro"; se declara en la galería
+- Con 200 candidatos ninguno llegó a "dragón claro"; se amplió a 2 000
 
 ## 9. Galería: diez personajes
 
-- 200 candidatos generados (semillas 1000–1199). Tasa de selección: 10 ÷ 200 = 5 %
-- Criterio: seis notas de 0 a 2 definidas antes de ver los candidatos
-- Resultado: 0 aceptados, 12 en reserva, 188 descartados. Los diez salen de la reserva
-- Son siluetas de dragón, no dragones nítidos
-- Fila 1: Ceniza Alta (centinela), Musgo Viejo (guardián), Garra Sombría (acechador), Ámbar Errante (mensajero), Fauce Carmesí (heraldo)
-- Fila 2: Vela Nocturna (exploradora), Espina Jade (custodio), Brasa Celeste (campeón), Llama Dorada (portadora del fuego), Bruma Gris (espectro)
+- 2 000 candidatos generados (semillas 1000–2999). Tasa de selección: 10 ÷ 2 000 = 0,5 %
+- Primera ronda de 200: ninguno aceptado. Se amplió a 2 000 con el mismo modelo
+- Prefiltro con ResNet-18, revisión visual de 400 y nota individual a 36
+- Resultado: 4 aceptados (dragón claro) y 32 en reserva. Los diez: 4 aceptados y 6 de reserva
+- Fila 1: Fauce Carmesí (heraldo), Ámbar Errante (mensajero), Cresta Sombría (centinela), Vela Nocturna (exploradora), Brasa Celeste (campeón)
+- Fila 2: Bruma Gris (espectro), Marea Azul (guardián), Llama Dorada (portadora del fuego), Garra Sombría (acechador), Paso Viejo (rastreador)
 
 ![Galería](img/galeria_mosaico.png)
 
@@ -103,33 +103,33 @@ después son anexos.
 - Métrica: características de ResNet-18 preentrenada; también píxeles y forma
 - Se compara además contra las imágenes volteadas
 - Referencia: distancia entre imágenes reales (percentil 5 = 0,240)
-- Los diez quedan entre 0,60 y 0,74: ninguno es copia
-- Dos alertas en píxeles (04 y 07): coincide el fondo pardo, no la figura
+- Los diez quedan entre 0,58 y 0,64: ninguno es copia y no hay alertas
 - Los vecinos comparten paleta y fondo con el personaje
+- Un mismo dragón real es vecino de cuatro personajes
 - Prueba del método: copia exacta y copia volteada dan distancia 0
 
 ![Vecinos con ResNet-18](vecinos/vecinos_cnn.png)
 
 ## 11. Reflexión, conclusiones y limitaciones
 
-- Más difícil de defender: Ámbar Errante (04). Es el más cercano en píxeles (0,281) a una imagen real: mismo fondo pardo y tonos naranjas, aunque otra figura
+- Más difícil de defender: Marea Azul (07). Su vecina es un dragón azul enroscado sobre ocre: misma paleta, mismo fondo y composición parecida, aunque otra figura
 - Qué aprendió la GAN: primero fondos, paletas y trazos de escamas; la estructura del dragón solo en parte. Lo nuevo es la forma; el color viene del dataset
 - La pérdida no saturante fue necesaria; la normalización espectral, tal como se aplicó, empeoró
 - Los datos importaron más que la arquitectura: de 22 a 956 imágenes se pasó de colapso a variedad
-- Limitaciones: datos sintéticos de estilos mezclados, 64×64, una sola semilla y evaluación visual subjetiva
-- Estar lejos de los vecinos no prueba novedad: también refleja menor calidad
+- Limitaciones: solo 4 de 2 000 son dragones claros; datos sintéticos de estilos mezclados, 64×64, una sola semilla y evaluación visual subjetiva
+- Estar lejos de los vecinos no prueba novedad: también refleja menor detalle
 
 ## 12. Matriz de evidencias
 
 | Evidencia | Diap. | Conclusión | Limitación |
 | Universo y datos con licencia CC0 | 1, 2 | 956 imágenes revisadas y documentadas | Datos sintéticos de Stable Diffusion |
-| DCGAN y código que regenera la galería | 3 | Regenera los 10 con diferencia máxima de 1/255 | Igualdad exacta solo en el mismo entorno |
+| DCGAN y código que regenera la galería | 3 | Regenera los 10 PNG idénticos byte a byte | Igualdad exacta solo en el mismo entorno |
 | Experimento de pérdida | 4, 5 | Hipótesis confirmada: minimax satura | Una sola semilla |
 | Experimento de estabilización | 4, 5 | Hipótesis rechazada: colapso con norm. espectral | No se probó otra tasa para D |
 | Rejilla de ruido fijo | 5, 6 | Siluetas desde la época 150; sin colapso en la base | Solo 16 vectores z |
 | Curvas de pérdida | 7 | D domina en la base; curvas planas no implican calidad | No miden calidad ni novedad |
-| Galería y tasa de selección | 9 | 10 de 200 (5 %); 0 aceptados, 10 de reserva | Siluetas abstractas; evaluación subjetiva |
-| Vecinos más cercanos | 10 | Ninguna copia; dos alertas por fondo | No prueban novedad |
+| Galería y tasa de selección | 9 | 10 de 2 000 (0,5 %): 4 aceptados y 6 de reserva | Anatomía incompleta; evaluación subjetiva |
+| Vecinos más cercanos | 10 | Ninguna copia ni alerta; comparten paleta y fondo | No prueban novedad |
 | Fallos y colapso de modos | 5, 8 | Colapso con 22 imágenes y con norm. espectral | Causa no aislada con experimentos |
 
 ## Anexo A. Criterios de evaluación de candidatos
@@ -144,8 +144,8 @@ después son anexos.
 
 ## Anexo B. Vecinos más cercanos en píxeles
 
-- Alertas en los personajes 04 y 07 (percentil 5 = 0,303)
-- La vecina común es una cabeza marrón sobre fondo pardo liso
+- Sin alertas: todos sobre el percentil 5 entre reales (0,303)
+- El más cercano es Llama Dorada (08), a 0,324, por su fondo pardo
 
 ![Vecinos en píxeles](vecinos/vecinos_pixel.png)
 

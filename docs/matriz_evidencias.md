@@ -16,10 +16,10 @@ La versión de una diapositiva está en la diapositiva 12 de `presentacion.pdf`.
 | Curvas de pérdida interpretadas | `docs/img/v3_curvas.png`, `docs/resultados_v3.md` | 7 | D domina 268 épocas en la base; curvas planas no implican calidad | Las pérdidas no miden calidad | Persona 1 |
 | Fallos y colapso de modos | `docs/resultados_fullbody_v2.md`, `docs/resultados_v3.md` | 5, 8 | Colapso con 22 imágenes y con normalización espectral | No se aisló una causa única | Persona 1 |
 | Criterios de evaluación | `docs/criterios_evaluacion.md` | 9, anexo A | Seis criterios de 0 a 2 definidos antes de ver candidatos | Evaluación visual, sin FID | Persona 2 |
-| Evaluación de candidatos | `docs/data/evaluacion_candidatos.csv`, `docs/evaluacion_candidatos.md` | 9 | 0 aceptados, 12 en reserva y 188 descartados | Las 158 texturas se calificaron en grupo | Persona 2 |
-| Diez personajes distintos | `galeria/`, `docs/galeria_final.md` | 9 | Diez siluetas de poses y paletas distintas | No son dragones nítidos | Ambos |
-| Tasa de selección | `galeria/registro_seleccion.csv` | 9 | 10 de 200 = 5 % | Selección subjetiva | Persona 2, con el conteo de persona 1 |
-| Vecinos más cercanos | `scripts/nearest_neighbors.py`, `docs/vecinos/`, `docs/vecinos_cercanos.md` | 10, anexo B | Ninguna copia; dos alertas en píxeles por el fondo | No demuestra novedad por sí solo | Persona 2 |
-| Reproducibilidad | `galeria/galeria_selection.json`, `dragon_gan/generate.py`, `pesos/` | 3 | Los diez se regeneran con diferencia máxima de 1/255 por píxel | Igualdad byte a byte solo en el mismo entorno | Persona 1 |
-| Reflexión final | `docs/vecinos_cercanos.md` | 11 | Ámbar Errante (04) es el más difícil de defender: comparte fondo y paleta con su vecina | Análisis visual | Ambos |
+| Evaluación de candidatos | `docs/data/evaluacion_candidatos.csv`, `docs/data/prefiltro_candidatos.csv`, `docs/evaluacion_candidatos.md` | 9 | De 2 000: 4 aceptados, 32 en reserva, 365 descartados y 1 599 fuera del prefiltro | Los descartados se calificaron en grupo | Persona 2 |
+| Diez personajes distintos | `galeria/`, `docs/galeria_final.md` | 9 | Diez personajes de poses y paletas distintas: 4 dragones claros y 6 siluetas | Anatomía incompleta en la mayoría | Ambos |
+| Tasa de selección | `galeria/registro_seleccion.csv` | 9 | 10 de 2 000 = 0,5 % | Selección subjetiva | Persona 2, con el conteo de persona 1 |
+| Vecinos más cercanos | `scripts/nearest_neighbors.py`, `docs/vecinos/`, `docs/vecinos_cercanos.md` | 10, anexo B | Ninguna copia ni alerta; los vecinos comparten paleta y fondo | No demuestra novedad por sí solo | Persona 2 |
+| Reproducibilidad | `galeria/galeria_selection.json`, `dragon_gan/generate.py`, `pesos/` | 3 | Los diez se regeneran idénticos byte a byte | Igualdad byte a byte solo en el mismo entorno | Persona 1 |
+| Reflexión final | `docs/vecinos_cercanos.md` | 11 | Marea Azul (07) es el más difícil de defender: comparte paleta, fondo y composición con su vecina | Análisis visual | Ambos |
 | Uso de IA | `README.md` | anexo D | Declarado | — | Ambos |
