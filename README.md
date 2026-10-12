@@ -23,20 +23,27 @@ Entrenamiento v3: Google Colab con GPU T4 (en CPU cada época tarda ~30 s).
   evaluación, selección de galería y organización del PDF.
 - Ambos: universo, interpretación de resultados, selección del modelo y revisión final.
 
-## Inicio de la parte 1
+## Cómo ejecutar
 
-Consultar `docs/trabajo_local.md` para configurar el entorno y colaborar por GitHub.
-Abrir `output/jupyter-notebook/parte_1_gan.ipynb` en JupyterLab local.
-El entrenamiento usa PyTorch con CPU o GPU compatible; sus versiones efectivas deben
-registrarse en cada ejecución. El entorno local se comprobó con Python 3.13.7,
-PyTorch 2.14.1+cpu y torchvision 0.29.1+cpu; instalación en `requirements.txt`.
-La comprobación de cómputo y retropropagación pasó en CPU. La selección del piloto
-tiene procedencia sintética; no equivale a completar el entrenamiento del proyecto.
+Entorno local (Windows, CPU), desde la raíz del repositorio:
 
-La configuración inicial está en `configs/base.json`. Sus valores son propuestas,
-no valores optimizados. Deben fijarse antes de comenzar las comparaciones.
-La semilla propuesta es 42. Ver `docs/experimentos.md` y
-`docs/entrega_dataset.md` antes de entrenar.
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe scripts/check_environment.py
+```
+
+Entrenamiento: abrir `output/jupyter-notebook/parte_1_gan.ipynb` en Google Colab con
+GPU T4 y ejecutar todo. Descarga el dataset, entrena las tres variantes con
+`configs/final_v4.json` y genera el informe. Detalle en `docs/entrenamiento_v3.md`.
+
+| Entorno | Uso | Versiones |
+|---|---|---|
+| Google Colab, Tesla T4 | Entrenamiento de las tres variantes | Python 3.13.15, PyTorch 2.11.0+cu130, NumPy 2.1.3 |
+| Windows, CPU | Dataset, candidatos, galería, vecinos y presentación | Python 3.11.8, PyTorch 2.14.1+cpu, torchvision 0.29.1+cpu |
+
+`requirements.txt` fija las versiones verificadas con Python 3.13.7. Con Python 3.11
+se usaron las mismas versiones de PyTorch y torchvision, NumPy 2.4.6 y matplotlib 3.8.4.
 
 ## Persona 2: dataset, evaluación y presentación
 
@@ -60,9 +67,9 @@ Con los candidatos de la parte 1 (`<candidatos>` = carpeta con PNG y `manifest.j
 .\.venv\Scripts\python.exe scripts/build_presentation.py
 ```
 
-Resultado: 200 candidatos evaluados, 10 personajes seleccionados (tasa de
-selección del 5 %) y ninguno es copia de una imagen de entrenamiento. Son
-siluetas de dragón, no dragones nítidos; ver `docs/evaluacion_candidatos.md`.
+Resultado: 2 000 candidatos generados, 10 personajes seleccionados (tasa de
+selección del 0,5 %) y ninguno es copia de una imagen de entrenamiento. Solo 4
+son dragones claros; los otros 6 son siluetas. Ver `docs/evaluacion_candidatos.md`.
 
 ## Entrega final
 
@@ -80,8 +87,8 @@ Regenerar la galería desde los pesos y los vectores z:
 .\.venv\Scripts\python.exe -m dragon_gan.generate --checkpoint pesos/generator_epoch_0450.pt --output runs/galeria_regenerada --manifest galeria/galeria_selection.json
 ```
 
-Semillas: 42 para el entrenamiento, 43 para el ruido fijo y 1000–1199 para los
-200 candidatos. Las de los diez personajes están en `galeria/registro_seleccion.csv`.
+Semillas: 42 para el entrenamiento, 43 para el ruido fijo y 1000–2999 para los
+2 000 candidatos. Las de los diez personajes están en `galeria/registro_seleccion.csv`.
 
 ## Uso de asistentes de IA
 
