@@ -92,41 +92,47 @@ percentil 5 entre imágenes reales):
 
 | Personaje | `cnn` (0,240) | `pixel` (0,303) | `forma` (0,768) | Alerta |
 |---|---:|---:|---:|---|
-| 01 Ceniza Alta | 0,640 | 0,409 | 0,858 | No |
-| 02 Musgo Viejo | 0,652 | 0,345 | 0,910 | No |
-| 03 Garra Sombría | 0,660 | 0,425 | 1,127 | No |
-| 04 Ámbar Errante | 0,611 | **0,281** | 1,085 | Sí, en `pixel` |
-| 05 Fauce Carmesí | 0,596 | 0,459 | 0,985 | No |
-| 06 Vela Nocturna | 0,606 | 0,448 | 0,937 | No |
-| 07 Espina Jade | 0,735 | **0,294** | 0,976 | Sí, en `pixel` |
-| 08 Brasa Celeste | 0,642 | 0,493 | 1,059 | No |
-| 09 Llama Dorada | 0,686 | 0,370 | 1,023 | No |
-| 10 Bruma Gris | 0,642 | 0,395 | 0,951 | No |
+| 01 Fauce Carmesí | 0,602 | 0,441 | 0,865 | No |
+| 02 Ámbar Errante | 0,603 | 0,383 | 0,915 | No |
+| 03 Cresta Sombría | 0,596 | 0,449 | 0,929 | No |
+| 04 Vela Nocturna | 0,591 | 0,462 | 0,951 | No |
+| 05 Brasa Celeste | 0,624 | 0,628 | 0,943 | No |
+| 06 Bruma Gris | 0,637 | 0,406 | 1,010 | No |
+| 07 Marea Azul | **0,578** | 0,478 | 1,017 | No |
+| 08 Llama Dorada | 0,603 | 0,324 | 1,065 | No |
+| 09 Garra Sombría | 0,613 | 0,634 | 1,108 | No |
+| 10 Paso Viejo | 0,640 | 0,436 | 1,026 | No |
 
 ### Interpretación
 
-- **Ningún personaje es copia de una imagen de entrenamiento.** En `cnn` y
-  `forma` los diez quedan muy por encima del umbral, y en las figuras ninguna
-  silueta coincide con la de su vecina.
-- **Dos alertas en `pixel` (04 y 07).** Su vecina más cercana es la misma
-  imagen: una cabeza de dragón marrón sobre fondo gris pardo liso. Lo que
-  coincide es el fondo y la paleta, no la figura: en `forma` ambos quedan
-  cerca de la mediana entre reales (0,981).
-- **Los vecinos comparten color y fondo.** Rojo sobre celeste para 05, 08 y 09;
-  gris para 10; ocre para 02. El generador aprendió las combinaciones de color
-  del dataset.
+- **Ningún personaje es copia de una imagen de entrenamiento.** Ninguna de las
+  tres métricas da alerta y en las figuras ninguna silueta coincide con la de
+  su vecina.
+- **Los vecinos comparten color y fondo con el personaje.** Rojo sobre celeste
+  para 01, 04 y 05; gris para 06 y 10; azul sobre ocre para 07. El generador
+  aprendió las combinaciones de color del dataset.
+- **Un mismo dragón real aparece como vecino de varios personajes** (la cabeza
+  roja sobre fondo verde azulado, en 01, 02, 03 y 04). Indica que esa zona del
+  dataset pesa mucho en lo que el modelo genera.
 - **Estar lejos no es solo buena noticia.** En `cnn` los personajes están a
-  0,60–0,74 de su vecina, el doble de la mediana entre reales (0,302). No son
-  copias, pero tampoco se parecen a un dragón real del dataset: son siluetas
-  más abstractas, con menos detalle.
+  0,58–0,64 de su vecina, el doble de la mediana entre reales (0,302). No son
+  copias, pero tampoco tienen el detalle de un dragón del dataset.
 
 ### El personaje más difícil de defender
 
-**04, Ámbar Errante.** Es el que queda más cerca de una imagen real en píxeles
-(0,281, bajo el percentil 5). Su figura naranja no reproduce la cabeza de la
-vecina, pero el fondo pardo y los tonos naranjas sí son casi los mismos.
+**07, Marea Azul.** Es el más cercano a una imagen real según ResNet-18
+(0,578). Su vecina es un dragón azul enroscado sobre fondo ocre: la misma
+paleta, el mismo fondo y una composición circular parecida. La figura no es la
+misma —no coinciden cabeza, patas ni contorno, y en `forma` queda por encima
+de la mediana entre reales—, pero la idea visual sí viene de esa imagen.
 
 Este caso muestra qué aprendió la GAN: primero lo más fácil y repetido del
 dataset —fondos lisos, paletas y trazos de escamas—, y solo parcialmente la
-estructura de un dragón. La novedad de nuestros personajes viene de formas que
-no existen en el dataset, pero su color y su fondo sí están tomados de él.
+estructura de un dragón. La novedad de nuestros personajes está en la forma;
+el color y el fondo están tomados del dataset.
+
+### Primera ronda
+
+Con la galería inicial (10 de 200 candidatos) hubo dos alertas en `pixel` por
+fondos pardos casi idénticos a una imagen real. Esa galería se reemplazó al
+ampliar a 2 000 candidatos; ver `docs/evaluacion_candidatos.md`.
