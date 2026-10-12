@@ -1,28 +1,25 @@
 # Matriz de evidencias
 
 Columnas que pide el enunciado: evidencia, diapositiva, conclusión y
-limitación. Se agrega la ubicación real del archivo y quién lo produce.
-
-Estado al 11 de octubre de 2026: las filas marcadas como **pendiente** dependen
-del entrenamiento final (v3), que todavía no tiene resultados en el repositorio.
+limitación. Se agrega la ubicación real del archivo y quién lo produjo.
+La versión de una diapositiva está en la diapositiva 12 de `presentacion.pdf`.
 
 | Requisito | Evidencia y ubicación | Diap. | Conclusión | Limitación | Responsable |
 |---|---|---:|---|---|---|
-| Universo definido | `README.md`, `docs/presentacion_guion.md` | 1 | Dragones de fantasía medieval con escamas, cuernos y alas | La referencia a Game of Thrones es solo visual | Ambos |
+| Universo definido | `README.md` | 1 | Dragones de fantasía medieval con escamas, cuernos y alas | Game of Thrones es solo referencia visual | Ambos |
 | Procedencia del dataset | `docs/ficha_dataset.md` | 2 | Dino or Dragon?, Kaggle, CC0, ZIP verificado por SHA-256 | Imágenes sintéticas de Stable Diffusion | Persona 2 |
-| Selección y preparación | `docs/data/curation_final_v4.csv`, `docs/data/exclusiones_persona2.csv`, `docs/preparacion_dataset.md`, `docs/img/muestra_cargador.png` | 2 | 956 de 965 aceptadas; 64×64, [-1, 1], volteo horizontal | Revisión visual subjetiva sobre miniaturas | Persona 2 |
-| GAN entrenada por el equipo | `dragon_gan/`, `configs/final_v3.json`, pesos: **pendiente** | 3 | **Pendiente** | **Pendiente** | Persona 1 |
-| Experimento de pérdida | `docs/hypotheses/v3/loss.txt`, resultados: **pendiente** | 4, 5 | **Pendiente** | Una sola semilla | Persona 1 |
-| Experimento de estabilización | `docs/hypotheses/v3/stabilization.txt`, resultados: **pendiente** | 4, 5 | **Pendiente** | Una sola semilla | Persona 1 |
-| Evolución con ruido fijo | Rejillas por época: **pendiente** | 6 | **Pendiente** | Solo 16 vectores z | Persona 1 |
-| Curvas de pérdida interpretadas | Gráficas y análisis: **pendiente** | 7 | **Pendiente** | Las pérdidas no miden calidad | Persona 1 |
-| Fallos y colapso de modos | `docs/resultados_fullbody_v2.md`, `docs/data/fullbody_result_v2.json` | 8 | Con 22 imágenes las tres variantes colapsaron: 0 de 600 aceptados | No se aisló una causa única | Persona 1 |
-| Criterios de evaluación | `docs/criterios_evaluacion.md`, `scripts/evaluation_table.py` | 9, anexo A | Seis criterios de 0 a 2 definidos antes de ver candidatos | Evaluación visual, sin FID | Persona 2 |
-| Evaluación de candidatos | `docs/data/evaluacion_candidatos.csv`: **pendiente** | 9 | **Pendiente** | **Pendiente** | Persona 2 |
-| Diez personajes distintos | `galeria/`: **pendiente** | 9 | **Pendiente** | **Pendiente** | Ambos |
-| Tasa de selección | `galeria/registro_seleccion.csv`: **pendiente** | 9 | **Pendiente** | Selección subjetiva | Persona 2, con el conteo de persona 1 |
-| Vecinos más cercanos: método | `scripts/nearest_neighbors.py`, `docs/vecinos_cercanos.md` | 10 | Detecta copias exactas y volteadas con distancia 0 en las tres métricas | No demuestra novedad por sí solo | Persona 2 |
-| Vecinos más cercanos: resultados | `docs/vecinos/`: **pendiente** | 10 | **Pendiente** | **Pendiente** | Persona 2 |
-| Reproducibilidad | `galeria/galeria_selection.json`: **pendiente**; `dragon_gan/generate.py` | 3, 9 | Procedimiento probado: 10 de 10 PNG regenerados idénticos con un modelo de prueba | Igualdad exacta solo en el mismo entorno | Persona 1 |
-| Reflexión y limitaciones | `docs/presentacion_guion.md`: **pendiente** | 11 | **Pendiente** | **Pendiente** | Ambos |
-| Uso de IA | `README.md` | anexo B | Declarado | — | Ambos |
+| Selección y preparación | `docs/data/curation_final_v4.csv`, `docs/data/exclusiones_persona2.csv`, `docs/preparacion_dataset.md` | 2 | 956 de 965 aceptadas; 64×64, [-1, 1], volteo horizontal | Revisión visual subjetiva sobre miniaturas | Persona 2 |
+| GAN entrenada por el equipo | `dragon_gan/`, `configs/final_v4.json`, `pesos/generator_epoch_0450.pt` | 3 | DCGAN 64×64 entrenada 600 épocas en GPU T4 | Siluetas abstractas, sin anatomía completa | Persona 1 |
+| Experimento de pérdida | `docs/hypotheses/v3/loss.txt`, `docs/resultados_v3.md` | 4, 5 | Hipótesis confirmada: minimax satura y G no aprende | Una sola semilla | Persona 1 |
+| Experimento de estabilización | `docs/hypotheses/v3/stabilization.txt`, `docs/resultados_v3.md` | 4, 5 | Hipótesis rechazada: la normalización espectral colapsó | No se probó otra tasa de aprendizaje para D | Persona 1 |
+| Evolución con ruido fijo | `docs/img/v3_evolucion_base.png`, `docs/img/v3_ruido_fijo_variantes.png` | 5, 6 | Siluetas desde la época 150; sin colapso en la base | Solo 16 vectores z | Persona 1 |
+| Curvas de pérdida interpretadas | `docs/img/v3_curvas.png`, `docs/resultados_v3.md` | 7 | D domina 268 épocas en la base; curvas planas no implican calidad | Las pérdidas no miden calidad | Persona 1 |
+| Fallos y colapso de modos | `docs/resultados_fullbody_v2.md`, `docs/resultados_v3.md` | 5, 8 | Colapso con 22 imágenes y con normalización espectral | No se aisló una causa única | Persona 1 |
+| Criterios de evaluación | `docs/criterios_evaluacion.md` | 9, anexo A | Seis criterios de 0 a 2 definidos antes de ver candidatos | Evaluación visual, sin FID | Persona 2 |
+| Evaluación de candidatos | `docs/data/evaluacion_candidatos.csv`, `docs/evaluacion_candidatos.md` | 9 | 0 aceptados, 12 en reserva y 188 descartados | Las 158 texturas se calificaron en grupo | Persona 2 |
+| Diez personajes distintos | `galeria/`, `docs/galeria_final.md` | 9 | Diez siluetas de poses y paletas distintas | No son dragones nítidos | Ambos |
+| Tasa de selección | `galeria/registro_seleccion.csv` | 9 | 10 de 200 = 5 % | Selección subjetiva | Persona 2, con el conteo de persona 1 |
+| Vecinos más cercanos | `scripts/nearest_neighbors.py`, `docs/vecinos/`, `docs/vecinos_cercanos.md` | 10, anexo B | Ninguna copia; dos alertas en píxeles por el fondo | No demuestra novedad por sí solo | Persona 2 |
+| Reproducibilidad | `galeria/galeria_selection.json`, `dragon_gan/generate.py`, `pesos/` | 3 | Los diez se regeneran con diferencia máxima de 1/255 por píxel | Igualdad byte a byte solo en el mismo entorno | Persona 1 |
+| Reflexión final | `docs/vecinos_cercanos.md` | 11 | Ámbar Errante (04) es el más difícil de defender: comparte fondo y paleta con su vecina | Análisis visual | Ambos |
+| Uso de IA | `README.md` | anexo D | Declarado | — | Ambos |
