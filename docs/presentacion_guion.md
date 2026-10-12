@@ -90,10 +90,11 @@ después son anexos.
 
 - 2 000 candidatos generados (semillas 1000–2999). Tasa de selección: 10 ÷ 2 000 = 0,5 %
 - Primera ronda de 200: ninguno aceptado. Se amplió a 2 000 con el mismo modelo
-- Prefiltro con ResNet-18, revisión visual de 400 y nota individual a 36
-- Resultado: 4 aceptados (dragón claro) y 32 en reserva. Los diez: 4 aceptados y 6 de reserva
-- Fila 1: Fauce Carmesí (heraldo), Ámbar Errante (mensajero), Cresta Sombría (centinela), Vela Nocturna (exploradora), Brasa Celeste (campeón)
-- Fila 2: Bruma Gris (espectro), Marea Azul (guardián), Llama Dorada (portadora del fuego), Garra Sombría (acechador), Paso Viejo (rastreador)
+- Se revisaron los 2 000 en hojas de contacto y se calificaron uno por uno los 72 mejores
+- Resultado: 9 aceptados (dragón claro), 63 en reserva y 1 928 descartados
+- Los diez: 8 aceptados y 2 de reserva, elegidos por variedad de pose y color
+- Fila 1: Fauce Carmesí (heraldo), Ámbar Errante (mensajero), Cresta Sombría (centinela), Bruma Gris (espectro), Brasa Celeste (campeón)
+- Fila 2: Marea Azul (guardián), Garra Sombría (acechador), Vela Nocturna (exploradora), Llama Dorada (portadora del fuego), Ala Escarlata (jinete)
 
 ![Galería](img/galeria_mosaico.png)
 
@@ -103,7 +104,7 @@ después son anexos.
 - Métrica: características de ResNet-18 preentrenada; también píxeles y forma
 - Se compara además contra las imágenes volteadas
 - Referencia: distancia entre imágenes reales (percentil 5 = 0,240)
-- Los diez quedan entre 0,58 y 0,64: ninguno es copia y no hay alertas
+- Los diez quedan entre 0,60 y 0,73: ninguno es copia y no hay alertas
 - Los vecinos comparten paleta y fondo con el personaje
 - Un mismo dragón real es vecino de cuatro personajes
 - Prueba del método: copia exacta y copia volteada dan distancia 0
@@ -112,11 +113,11 @@ después son anexos.
 
 ## 11. Reflexión, conclusiones y limitaciones
 
-- Más difícil de defender: Marea Azul (07). Su vecina es un dragón azul enroscado sobre ocre: misma paleta, mismo fondo y composición parecida, aunque otra figura
-- Qué aprendió la GAN: primero fondos, paletas y trazos de escamas; la estructura del dragón solo en parte. Lo nuevo es la forma; el color viene del dataset
+- Más difícil de defender: Vela Nocturna (08). En forma queda a 0,771 de una cabeza real de perfil, casi en el umbral (0,768): misma pose y sombras, aunque otra cresta, color y fondo
+- Qué aprendió la GAN: el encuadre más repetido del dataset. 4 de los 10 personajes son cabezas de perfil; lo nuevo son los detalles y el color
 - La pérdida no saturante fue necesaria; la normalización espectral, tal como se aplicó, empeoró
 - Los datos importaron más que la arquitectura: de 22 a 956 imágenes se pasó de colapso a variedad
-- Limitaciones: solo 4 de 2 000 son dragones claros; datos sintéticos de estilos mezclados, 64×64, una sola semilla y evaluación visual subjetiva
+- Limitaciones: solo 9 de 2 000 son dragones claros; datos sintéticos de estilos mezclados, 64×64, una sola semilla y evaluación visual subjetiva
 - Estar lejos de los vecinos no prueba novedad: también refleja menor detalle
 
 ## 12. Matriz de evidencias
@@ -128,7 +129,7 @@ después son anexos.
 | Experimento de estabilización | 4, 5 | Hipótesis rechazada: colapso con norm. espectral | No se probó otra tasa para D |
 | Rejilla de ruido fijo | 5, 6 | Siluetas desde la época 150; sin colapso en la base | Solo 16 vectores z |
 | Curvas de pérdida | 7 | D domina en la base; curvas planas no implican calidad | No miden calidad ni novedad |
-| Galería y tasa de selección | 9 | 10 de 2 000 (0,5 %): 4 aceptados y 6 de reserva | Anatomía incompleta; evaluación subjetiva |
+| Galería y tasa de selección | 9 | 10 de 2 000 (0,5 %): 8 aceptados y 2 de reserva | Anatomía incompleta; evaluación subjetiva |
 | Vecinos más cercanos | 10 | Ninguna copia ni alerta; comparten paleta y fondo | No prueban novedad |
 | Fallos y colapso de modos | 5, 8 | Colapso con 22 imágenes y con norm. espectral | Causa no aislada con experimentos |
 
@@ -145,7 +146,7 @@ después son anexos.
 ## Anexo B. Vecinos más cercanos en píxeles
 
 - Sin alertas: todos sobre el percentil 5 entre reales (0,303)
-- El más cercano es Llama Dorada (08), a 0,324, por su fondo pardo
+- El más cercano es Llama Dorada (09), a 0,324, por su fondo pardo
 
 ![Vecinos en píxeles](vecinos/vecinos_pixel.png)
 
