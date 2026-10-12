@@ -6,16 +6,16 @@ Modelo: base (pérdida no saturante), época 450. Pesos: `pesos/generator_epoch_
 
 | Id | Nombre | Clase | Candidato | Semilla | Decisión | Motivo |
 |---|---|---|---|---:|---|---|
-| `personaje_01.png` | Fauce Carmesí | Heraldo de guerra | `dragon_1575` | 2574 | aceptar | La cabeza de dragón más clara |
+| `personaje_01.png` | Fauce Carmesí | Heraldo de guerra | `dragon_1575` | 2574 | aceptar | La cabeza carmesí más clara |
 | `personaje_02.png` | Ámbar Errante | Mensajero de las dunas | `dragon_0773` | 1772 | aceptar | Cabeza, lomo y cola en una figura |
 | `personaje_03.png` | Cresta Sombría | Centinela de las torres | `dragon_0630` | 1629 | aceptar | Cabeza de perfil con cresta de púas |
-| `personaje_04.png` | Vela Nocturna | Exploradora de tormentas | `dragon_0718` | 1717 | reserva | Cuello y cabeza con cuernos |
+| `personaje_04.png` | Bruma Gris | Espectro de las cumbres | `dragon_0987` | 1986 | aceptar | Cabeza gris con cuello curvado |
 | `personaje_05.png` | Brasa Celeste | Campeón de los cielos | `dragon_0224` | 1223 | aceptar | Rojo sobre azul intenso |
-| `personaje_06.png` | Bruma Gris | Espectro de las cumbres | `dragon_1640` | 2639 | reserva | Único monocromo gris |
-| `personaje_07.png` | Marea Azul | Guardián del río | `dragon_1583` | 2582 | reserva | Única paleta azul sobre ocre |
-| `personaje_08.png` | Llama Dorada | Portadora del fuego | `dragon_1257` | 2256 | reserva | Criatura dorada con alas abiertas |
-| `personaje_09.png` | Garra Sombría | Acechador nocturno | `dragon_0919` | 1918 | reserva | Figura oscura alada sobre celeste |
-| `personaje_10.png` | Paso Viejo | Rastreador de los valles | `dragon_1717` | 2716 | reserva | Único cuadrúpedo en marcha |
+| `personaje_06.png` | Marea Azul | Guardián del río | `dragon_0728` | 1727 | aceptar | Único cuadrúpedo completo, azul sobre naranja |
+| `personaje_07.png` | Garra Sombría | Acechador nocturno | `dragon_0166` | 1165 | aceptar | De frente, con cuernos y alas |
+| `personaje_08.png` | Vela Nocturna | Exploradora de tormentas | `dragon_0140` | 1139 | aceptar | Cabeza oscura con cresta |
+| `personaje_09.png` | Llama Dorada | Portadora del fuego | `dragon_1257` | 2256 | reserva | Criatura dorada con alas abiertas |
+| `personaje_10.png` | Ala Escarlata | Jinete del viento | `dragon_0034` | 1033 | reserva | Roja con ala, sobre verde azulado |
 
 Los nombres y clases los puso el equipo; el modelo solo genera la imagen.
 
@@ -57,7 +57,7 @@ los candidatos generados en Colab con PyTorch 2.11.0.
 
 ```powershell
 .\.venv\Scripts\python.exe -m dragon_gan.generate --checkpoint pesos/generator_epoch_0450.pt --output runs/candidates_2000 --count 2000 --seed 1000
-.\.venv\Scripts\python.exe -m scripts.rank_candidates --candidates runs/candidates_2000 --sheets runs/hojas_prefiltro
+.\.venv\Scripts\python.exe -m scripts.rank_candidates --candidates runs/candidates_2000 --sheets runs/hojas_revision --top 2000
 .\.venv\Scripts\python.exe scripts/evaluation_table.py --candidates runs/candidates_2000
 .\.venv\Scripts\python.exe scripts/evaluation_table.py --decide docs/data/evaluacion_candidatos.csv
 .\.venv\Scripts\python.exe scripts/build_gallery.py --candidates runs/candidates_2000
