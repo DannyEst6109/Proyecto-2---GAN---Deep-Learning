@@ -68,8 +68,8 @@ Con los candidatos de la parte 1 (`<candidatos>` = carpeta con PNG y `manifest.j
 ```
 
 Resultado: 2 000 candidatos generados, 10 personajes seleccionados (tasa de
-selección del 0,5 %) y ninguno es copia de una imagen de entrenamiento. Solo 4
-son dragones claros; los otros 6 son siluetas. Ver `docs/evaluacion_candidatos.md`.
+selección del 0,5 %) y ninguno es copia de una imagen de entrenamiento. Se revisaron
+los 2 000: 9 son dragones claros y 8 de ellos están en la galería. Ver `docs/evaluacion_candidatos.md`.
 
 ## Entrega final
 
