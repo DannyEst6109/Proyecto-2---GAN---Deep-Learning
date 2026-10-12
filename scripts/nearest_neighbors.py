@@ -106,6 +106,18 @@ def main():
     figure.tight_layout(rect=(0, 0, 1, 0.98))
     figure.savefig(args.output / f'vecinos_{args.metric}.png', dpi=150)
 
+    # Resumen lado a lado: arriba cada personaje, abajo su vecina más cercana.
+    summary, axes = plt.subplots(2, len(files), squeeze=False, figsize=(1.5 * len(files), 3.4))
+    for i, path in enumerate(files):
+        axes[0, i].imshow(generated[i].permute(1, 2, 0) / 2 + 0.5)
+        axes[0, i].set_title(path.stem[-2:], fontsize=9)
+        axes[1, i].imshow(train_all[nearest.indices[i, 0]].permute(1, 2, 0) / 2 + 0.5)
+        axes[1, i].set_title(f'{nearest.values[i, 0]:.3f}', fontsize=9)
+    for axis in axes.flat:
+        axis.axis('off')
+    summary.tight_layout()
+    summary.savefig(args.output / f'vecinos_{args.metric}_resumen.png', dpi=150)
+
     with (args.output / f'vecinos_{args.metric}.csv').open('w', encoding='utf-8', newline='') as target:
         writer = csv.DictWriter(target, fieldnames=rows[0].keys())
         writer.writeheader()
