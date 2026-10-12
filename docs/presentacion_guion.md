@@ -10,6 +10,7 @@ después son anexos.
 
 - Proyecto 2 · Deep Learning 2026 · Universidad del Valle de Guatemala
 - Daniel Estrada y Daniela Ramírez de León
+- Repositorio: https://github.com/DannyEst6109/Proyecto-2---GAN---Deep-Learning
 - Universo: dragones de fantasía medieval, con escamas, cuernos y alas
 - Estilo: ilustración, colores terrosos y oscuros, cielos y fondos simples
 - Referencia visual: Game of Thrones. Los personajes deben ser nuevos
